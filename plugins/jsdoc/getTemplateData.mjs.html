@@ -428,8 +428,6 @@ export const getTemplateDataSync = <span class="hljs-function">(<span class="hlj
     <span class="hljs-keyword">return</span> [];
   }
 
-  <span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;FILES: &#x27;</span>, files);
-
   let data = jsdoc2md.getTemplateDataSync({ files, <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">options</span>: { <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span> } });
 
   <span class="hljs-keyword">return</span> transformTemplateData(data);

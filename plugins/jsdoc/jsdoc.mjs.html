@@ -309,8 +309,6 @@
     },
     <span class="hljs-keyword">async</span> <span class="hljs-title function_">load</span>(<span class="hljs-params"></span>) {
       <span class="hljs-keyword">const</span> files = <span class="hljs-title function_">globSync</span>(<span class="hljs-string">&#x27;**/*.{js,mjs}&#x27;</span>, { cwd, ignore });
-
-      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;files....&#x27;</span>, files);
       
       <span class="hljs-keyword">const</span> data = <span class="hljs-title function_">getTemplateDataSync</span>(files);
       <span class="hljs-keyword">const</span> pages = <span class="hljs-title function_">getPages</span>(data);

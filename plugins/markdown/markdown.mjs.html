@@ -338,9 +338,7 @@
         <span class="hljs-keyword">return</span> currentFile;
       }
     }
-  )<span class="hljs-comment">/*.use(markdownItFrontMatter, (fm) =&gt; {
-    return parseFrontMatter(fm);
-  });*/</span>
+  );
 
   <span class="hljs-keyword">return</span> {
     <span class="hljs-keyword">get</span> <span class="hljs-title function_">renderer</span>() {
@@ -358,8 +356,6 @@
         <span class="hljs-keyword">const</span> dest = data.<span class="hljs-property">dest</span> || file
           .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/README\.md$/</span>, <span class="hljs-string">&#x27;index.html&#x27;</span>)
           .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\.md$/</span>, <span class="hljs-string">&#x27;.html&#x27;</span>);
-
-        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;dest.:&#x27;</span>, dest, source.<span class="hljs-title function_">substring</span>(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>), source.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^#\s*(.*)/m</span>)?.[<span class="hljs-number">1</span>]);
 
         <span class="hljs-keyword">const</span> title = data.<span class="hljs-property">title</span> || source.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^#\s*(.*)/m</span>)?.[<span class="hljs-number">1</span>] || file.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\.md$/</span>, <span class="hljs-string">&#x27;&#x27;</span>);
         <span class="hljs-keyword">const</span> name = data.<span class="hljs-property">name</span> || <span class="hljs-title function_">humanizeFile</span>(path.<span class="hljs-title function_">basename</span>(dest));
