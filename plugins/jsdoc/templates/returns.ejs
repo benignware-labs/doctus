@@ -1,0 +1,19 @@
+<%
+var data = obj || {};
+if (data.description) {
+%>
+<div class="param-desc">
+    <%- description %>
+</div>
+<% } %>
+
+<% if (data.type && data.type.names) {%>
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        <%- include('type.ejs', { ...data.type.names, obj: data.type.names }) %>
+    </dd>
+</dl>
+<% } %>

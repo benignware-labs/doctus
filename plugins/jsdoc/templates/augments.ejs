@@ -1,0 +1,10 @@
+<%
+    var data = obj;
+    var self = _global;
+%>
+
+<% if (data.augments && data.augments.length) { %>
+    <ul><% data.augments.forEach(function(a) { %>
+        <li><%- self.linkto(a, a) %></li>
+    <% }) %></ul>
+<% } %>

@@ -1,0 +1,35 @@
+<%
+  const menuLevel = typeof level !== 'undefined' ? level : 0;
+%>
+<ul class="menu<%- className ? ' ' + className : '' %>">
+  <% children.forEach(function(item, key){ %>
+    <%
+      const isActive = item.href === href || href
+        .replace(/index\.html$/, '')
+        .startsWith(item.href.replace(/index\.html$/, ''))
+    %>
+    <li class="menu-item">
+      <a 
+        class="menu-link<%- isActive ? ' active' : '' %>"
+        <% if (item.href) {  %>
+          href="<%= item.href %>"
+        <% } %>
+        <% if (item.children.length > 0) {  %>
+          role="button"
+          
+          aria-expanded="false"
+        <% } %>
+      >
+        <%= item.name %>
+      </a>
+      <% if ((nested < 0 || menuLevel < nested) && item.children.length > 0) {  %>
+        <%- include('menu', {
+          children: item.children,
+          level: menuLevel + 1,
+          nested
+        }); %>
+      <% } %>
+    </li>
+    
+  <% }); %>
+</ul>

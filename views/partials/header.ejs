@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <base href="<%= base %>"/>
+    <title><%= site.title %> - <%- title %></title>
+
+    <link rel="stylesheet" href="<%- asset('public/github-markdown.min.css') %>">
+    <link rel="stylesheet" href="<%- asset('public/highlight.css') %>">
+    <link rel="stylesheet" href="<%- asset('public/style.css') %>">
+
+    <%- slot('head') %>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html"><%= locals.site.title %></a>
+      <%-
+        include('menu', {
+          children: locals.navigation.root.children,
+          className: 'flex align-center justify-center',
+          nested: 0
+        });
+      %>
+    </div>
+      
+      

@@ -1,0 +1,28 @@
+<%- include('./partials/header') %>
+
+<main class="flex-grow flex-column h-100 container-fluid">
+  <div class="container-xl flex">
+    <div class="flex-grow">
+      <div>
+        <h1><%- title %></h1>
+        <%- content %>
+      </div>
+    </div>
+    <% if (site.description) { %>
+      <div class="sidebar ml-2 flex-noshrink">
+        <h4>About</h4>
+        <div class="muted">
+          <%- site.description %>
+        </div>
+        <% if (typeof packageJson !== 'undefined') { %>
+          <h4>Version</h4>
+          <div class="muted">
+            <%- packageJson.version %>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+</main>
+
+<%- include('./partials/footer') %>

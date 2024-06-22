@@ -1,0 +1,7 @@
+<%
+    var data = obj;
+    var self = _global;
+    data.forEach(function(name, i) { %>
+<span class="param-type"><%- self.linkto(name, self.htmlsafe(name)) %></span>
+<% if (i < data.length-1) { %>|<% } %>
+<% }); %>

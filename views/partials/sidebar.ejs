@@ -1,0 +1,10 @@
+<div class="sidebar border-right mr-2 flex-noshrink">
+  <%-
+    include('menu', {
+      children: locals.navigation.root.children,
+      className: '',
+      level: 0,
+      nested: -1
+    });
+  %>
+</div>

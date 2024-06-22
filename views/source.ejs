@@ -1,0 +1,17 @@
+<%- include('./partials/header') %>
+
+<main class="flex-grow flex h-100">
+  <%- include('./partials/sidebar') %>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: <%- basename %></h1>
+      <p>
+        <%- file %>
+      </p>
+      
+      <pre><code class="hljs"><%- highlight(code) %></code></pre>
+    </div>
+  </div>
+</main>
+
+<%- include('./partials/footer') %>
