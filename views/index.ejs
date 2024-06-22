@@ -1,4 +1,4 @@
-<%- include('./partials/header') %>
+<%- include('./partials/_header') %>
 
 <main class="flex-grow flex-column h-100 container-fluid">
   <div class="container-xl flex">
@@ -14,15 +14,10 @@
         <div class="muted">
           <%- site.description %>
         </div>
-        <% if (typeof packageJson !== 'undefined') { %>
-          <h4>Version</h4>
-          <div class="muted">
-            <%- packageJson.version %>
-          </div>
-        <% } %>
+        <%- slot('about') %>
       </div>
     <% } %>
   </div>
 </main>
 
-<%- include('./partials/footer') %>
+<%- include('./partials/_footer') %>

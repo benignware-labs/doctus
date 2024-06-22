@@ -23,7 +23,7 @@
         <%= item.name %>
       </a>
       <% if ((nested < 0 || menuLevel < nested) && item.children.length > 0) {  %>
-        <%- include('menu', {
+        <%- include('_menu', {
           children: item.children,
           level: menuLevel + 1,
           nested

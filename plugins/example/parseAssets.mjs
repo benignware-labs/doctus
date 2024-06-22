@@ -35,7 +35,6 @@ export const parseAssets = (html, options = {}) => {
   const rest = html.substring(lastIndex);
   output+= rest;
 
-
   return output;
 };
 

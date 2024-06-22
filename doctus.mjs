@@ -15,6 +15,8 @@ import highlightPlugin from './plugins/highlight/highlight.mjs';
 import packageJsonPlugin from './plugins/package/package.mjs';
 import sourcePlugin from './plugins/source/source.mjs';
 import jsdocPlugin from './plugins/jsdoc/jsdoc.mjs';
+import { globSync } from 'glob';
+import { readFileSync } from 'fs';
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const copyAsync = promisify(copy);
@@ -63,12 +65,25 @@ const doctus = () => {
     
     base = base === '' ? '.' : base;
 
-    const output = await ejs.renderFile(path.join(views, `${page.view || 'page'}.ejs`), {
+    const data = {
       asset: getAssetHelper({ fs, cwd: views, output: 'public/[name]-[hash][ext]'}),
-      slot: (name) => {
-        return getPluginInstances()
+      slot: (name, slotData = {}) => {
+        const partial = getPluginInstances()
           .filter(plugin => plugin.slot)
           .reduce((content, plugin) => plugin.slot(name, content), '');
+
+        return ejs.render(partial, { ...data, ...slotData });
+      },
+      icon: (name, options) => {
+        const iconTemplate = globSync('**/_icon.ejs', { cwd: views }).pop();
+
+        if (!iconTemplate) {
+          return '';
+        }
+
+        const iconTemplateContent = readFileSync(path.join(views, iconTemplate), 'utf-8');
+
+        return ejs.render(iconTemplateContent, { ...data, name, ...options });
       },
       assets: [],
       base,
@@ -76,7 +91,9 @@ const doctus = () => {
       ...locals,
       title: 'Untitled Document',
       ...page
-    });
+    };
+
+    const output = await ejs.renderFile(path.join(views, `${page.view || 'page'}.ejs`), data);
 
     if (emit) {
       fs.emit(file, output);
