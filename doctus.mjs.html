@@ -3,9 +3,9 @@
     <base href="."/>
     <title>doctus - doctus.mjs</title>
 
-    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
-    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
-    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+    <link rel="stylesheet" href="public/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="public/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="public/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
 
     <script src="~/plugins/core/example/ExampleViewer.js"></script>
   </head>
@@ -341,7 +341,7 @@
     base = base === <span class="hljs-string">&#x27;&#x27;</span> ? <span class="hljs-string">&#x27;.&#x27;</span> : base;
 
     <span class="hljs-keyword">const</span> output = <span class="hljs-keyword">await</span> ejs.<span class="hljs-title function_">renderFile</span>(path.<span class="hljs-title function_">join</span>(views, <span class="hljs-string">`<span class="hljs-subst">${page.view || <span class="hljs-string">&#x27;page&#x27;</span>}</span>.ejs`</span>), {
-      <span class="hljs-attr">asset</span>: <span class="hljs-title function_">getAssetHelper</span>({ fs, <span class="hljs-attr">cwd</span>: views, <span class="hljs-attr">output</span>: <span class="hljs-string">&#x27;_/[name]-[hash][ext]&#x27;</span>}),
+      <span class="hljs-attr">asset</span>: <span class="hljs-title function_">getAssetHelper</span>({ fs, <span class="hljs-attr">cwd</span>: views, <span class="hljs-attr">output</span>: <span class="hljs-string">&#x27;public/[name]-[hash][ext]&#x27;</span>}),
       <span class="hljs-attr">slot</span>: <span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-title function_">getPluginInstances</span>()
           .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugin.<span class="hljs-property">slot</span>)
