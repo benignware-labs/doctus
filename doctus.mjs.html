@@ -1,0 +1,476 @@
+<html>
+  <head>
+    <base href="."/>
+    <title>doctus - doctus.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: doctus.mjs</h1>
+      <p>
+        doctus.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span>;
+<span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;http&#x27;</span>;
+<span class="hljs-keyword">import</span> { promisify } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;util&#x27;</span>;
+<span class="hljs-keyword">import</span> ejs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;ejs&#x27;</span>;
+<span class="hljs-keyword">import</span> copy <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;copy&#x27;</span>;
+<span class="hljs-keyword">import</span> ghPages <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;gh-pages&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { createFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./utils/filesystem.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> { getAssetHelper, getContentType } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./utils/getAssetHelper.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> { buildNavigationTree } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./utils/navigation.mjs&#x27;</span>;
+
+<span class="hljs-keyword">import</span> markdownPlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./plugins/markdown/markdown.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> examplePlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./plugins/example/example.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> highlightPlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./plugins/highlight/highlight.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> packageJsonPlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./plugins/package/package.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> sourcePlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./plugins/source/source.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> jsdocPlugin <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./plugins/jsdoc/jsdoc.mjs&#x27;</span>;
+
+<span class="hljs-keyword">const</span> __dirname = path.<span class="hljs-title function_">dirname</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>);
+<span class="hljs-keyword">const</span> copyAsync = <span class="hljs-title function_">promisify</span>(copy);
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">doctus</span> = (<span class="hljs-params"></span>) =&gt; {
+  <span class="hljs-keyword">const</span> cwd = process.<span class="hljs-title function_">cwd</span>();
+  <span class="hljs-keyword">const</span> ignore = [<span class="hljs-string">&#x27;node_modules/**/*&#x27;</span>];
+  <span class="hljs-keyword">const</span> fs = <span class="hljs-title function_">createFileSystem</span>();
+  <span class="hljs-keyword">const</span> views = path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;views&#x27;</span>);
+  <span class="hljs-keyword">const</span> pluginImpl = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Set</span>();
+  <span class="hljs-keyword">const</span> plugins = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">getPluginInstances</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(pluginImpl).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugins.<span class="hljs-title function_">get</span>(plugin));
+  <span class="hljs-keyword">const</span> locals = {
+    <span class="hljs-attr">site</span>: {
+      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;&#x27;</span>
+    }
+  }
+
+  <span class="hljs-keyword">const</span> context = {
+    cwd,
+    ignore,
+    fs,
+    views,
+    <span class="hljs-attr">pages</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>(),
+    plugins,
+    getAssetHelper,
+    locals
+  }
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">use</span> = (<span class="hljs-params">plugin</span>) =&gt; {
+    <span class="hljs-keyword">if</span> (!pluginImpl.<span class="hljs-title function_">has</span>(plugin)) {
+      pluginImpl.<span class="hljs-title function_">add</span>(plugin);
+      plugins.<span class="hljs-title function_">set</span>(plugin, <span class="hljs-title function_">plugin</span>(context));
+    }
+  };
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">render</span> = <span class="hljs-keyword">async</span>(<span class="hljs-params">file, emit = <span class="hljs-literal">true</span></span>) =&gt; {
+    <span class="hljs-keyword">const</span> page = context.<span class="hljs-property">pages</span>.<span class="hljs-title function_">get</span>(file);
+
+    <span class="hljs-keyword">if</span> (!page) {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;
+    }
+
+    <span class="hljs-keyword">let</span> base = path.<span class="hljs-title function_">relative</span>(path.<span class="hljs-title function_">dirname</span>(file), <span class="hljs-string">&#x27;&#x27;</span>);
+    
+    base = base === <span class="hljs-string">&#x27;&#x27;</span> ? <span class="hljs-string">&#x27;.&#x27;</span> : base;
+
+    <span class="hljs-keyword">const</span> output = <span class="hljs-keyword">await</span> ejs.<span class="hljs-title function_">renderFile</span>(path.<span class="hljs-title function_">join</span>(views, <span class="hljs-string">`<span class="hljs-subst">${page.view || <span class="hljs-string">&#x27;page&#x27;</span>}</span>.ejs`</span>), {
+      <span class="hljs-attr">asset</span>: <span class="hljs-title function_">getAssetHelper</span>({ fs, <span class="hljs-attr">cwd</span>: views, <span class="hljs-attr">output</span>: <span class="hljs-string">&#x27;_/[name]-[hash][ext]&#x27;</span>}),
+      <span class="hljs-attr">slot</span>: <span class="hljs-function">(<span class="hljs-params">name</span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">getPluginInstances</span>()
+          .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugin.<span class="hljs-property">slot</span>)
+          .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">content, plugin</span>) =&gt;</span> plugin.<span class="hljs-title function_">slot</span>(name, content), <span class="hljs-string">&#x27;&#x27;</span>);
+      },
+      <span class="hljs-attr">assets</span>: [],
+      base,
+      <span class="hljs-attr">href</span>: file,
+      ...locals,
+      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Untitled Document&#x27;</span>,
+      ...page
+    });
+
+    <span class="hljs-keyword">if</span> (emit) {
+      fs.<span class="hljs-title function_">emit</span>(file, output);
+    }
+
+    <span class="hljs-keyword">return</span> output;
+  };
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">init</span> = <span class="hljs-keyword">async</span>(<span class="hljs-params"></span>) =&gt; {
+    <span class="hljs-keyword">const</span> plugins = <span class="hljs-title function_">getPluginInstances</span>();
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(
+      plugins
+        .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugin.<span class="hljs-property">init</span>)
+        .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugin.<span class="hljs-title function_">init</span>(context))
+    );
+  }
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">load</span> = <span class="hljs-keyword">async</span>(<span class="hljs-params"></span>) =&gt; {
+    <span class="hljs-keyword">const</span> { cwd, fs, pages } = context;
+    
+    pages.<span class="hljs-title function_">clear</span>();
+
+    <span class="hljs-keyword">const</span> plugins = <span class="hljs-title function_">getPluginInstances</span>();
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(
+      plugins
+        .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugin.<span class="hljs-property">load</span>)
+        .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">plugin</span> =&gt;</span> plugin.<span class="hljs-title function_">load</span>(context))
+    );
+
+    <span class="hljs-keyword">const</span> navigation = <span class="hljs-title function_">buildNavigationTree</span>(context.<span class="hljs-property">pages</span>);
+
+    context.<span class="hljs-property">locals</span>.<span class="hljs-property">navigation</span> = navigation;
+  }
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">handleRequest</span> = <span class="hljs-keyword">async</span>(<span class="hljs-params">req, res</span>) =&gt; {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">load</span>();
+
+    <span class="hljs-keyword">const</span> { url } = req;
+    <span class="hljs-keyword">const</span> filePath = url.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^\/+/</span>, <span class="hljs-string">&#x27;&#x27;</span>) || <span class="hljs-string">&#x27;index.html&#x27;</span>;
+
+    <span class="hljs-keyword">let</span> output = <span class="hljs-keyword">await</span> <span class="hljs-title function_">render</span>(filePath);
+
+    <span class="hljs-keyword">if</span> (!output &amp;&amp; fs.<span class="hljs-title function_">exists</span>(filePath)) {
+      output = fs.<span class="hljs-title function_">read</span>(filePath);
+    }
+
+    <span class="hljs-keyword">if</span> (output) {
+      <span class="hljs-keyword">const</span> contentType = <span class="hljs-title function_">getContentType</span>(filePath);
+
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Serving <span class="hljs-subst">${filePath}</span> as <span class="hljs-subst">${contentType}</span>`</span>);
+
+      res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>, { <span class="hljs-string">&#x27;Content-Type&#x27;</span>: contentType });
+      res.<span class="hljs-title function_">end</span>(output);
+      <span class="hljs-keyword">return</span>;
+    }
+
+    res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">404</span>, { <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;text/plain&#x27;</span> });
+    res.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;Not found&#x27;</span>);
+  };
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">listen</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params">port = <span class="hljs-number">3030</span></span>) =&gt; {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">init</span>();
+    
+    http
+      .<span class="hljs-title function_">createServer</span>(handleRequest)
+      .<span class="hljs-title function_">listen</span>(port, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Server running at http://localhost:<span class="hljs-subst">${port}</span>/`</span>);
+      });
+  }
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">build</span> = <span class="hljs-keyword">async</span>(<span class="hljs-params">outputDir = <span class="hljs-string">&#x27;docs-build&#x27;</span></span>) =&gt; {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">init</span>();
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">load</span>();
+    <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([...context.<span class="hljs-property">pages</span>.<span class="hljs-title function_">keys</span>()].<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> <span class="hljs-title function_">render</span>(url)));
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">copyAsync</span>(path.<span class="hljs-title function_">join</span>(fs.<span class="hljs-property">dir</span>, <span class="hljs-string">&#x27;**/*.*&#x27;</span>), outputDir);
+  }
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">publish</span> = <span class="hljs-keyword">async</span>(<span class="hljs-params">repo = <span class="hljs-literal">null</span></span>) =&gt; {
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">init</span>();
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">load</span>();
+    <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([...context.<span class="hljs-property">pages</span>.<span class="hljs-title function_">keys</span>()].<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">url</span> =&gt;</span> <span class="hljs-title function_">render</span>(url)));
+    
+    ghPages.<span class="hljs-title function_">publish</span>(fs.<span class="hljs-property">dir</span>, {
+      repo,
+      <span class="hljs-attr">dotfiles</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;Update documentation&#x27;</span>
+    });
+  }
+
+  <span class="hljs-title function_">use</span>(markdownPlugin);
+  <span class="hljs-title function_">use</span>(examplePlugin);
+  <span class="hljs-title function_">use</span>(highlightPlugin);
+  <span class="hljs-title function_">use</span>(packageJsonPlugin);
+  <span class="hljs-title function_">use</span>(sourcePlugin);
+  <span class="hljs-title function_">use</span>(jsdocPlugin);
+
+  <span class="hljs-keyword">return</span> {
+    listen,
+    use,
+    build,
+    publish
+  }
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> doctus;
+
+</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

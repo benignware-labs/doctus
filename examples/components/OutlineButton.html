@@ -1,0 +1,502 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - OutlineButton</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>OutlineButton</h1>
+      
+
+<section>
+
+<header>
+    
+        <h2>OutlineButton(text, onClick)</h2>
+        
+            <div class="class-description">Represents an outline button component.</div>
+
+</header>
+
+<article>
+    <div class="container-overview">
+
+<h2>Constructor</h2>
+
+<h4 class="name" id="examples.components.OutlineButton">new OutlineButton(text, onClick)</h4>
+
+<div class="description">
+    Creates a new OutlineButton instance.
+</div>
+
+<h5>Parameters:</h5>
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+
+<th>Type</th>
+
+<th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+<tr>
+            
+                <td class="name"><code>text</code></td>
+
+<td class="type">
+
+<span class="param-type">string</span>
+
+</td>
+
+<td class="description last">The text to display on the button.</td>
+        </tr>
+
+<tr>
+            
+                <td class="name"><code>onClick</code></td>
+
+<td class="type">
+
+<span class="param-type">function</span>
+
+</td>
+
+<td class="description last">The click event handler for the button.</td>
+        </tr>
+
+</tbody>
+</table>
+
+<dl class="details">
+
+<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples/components/Button.js.html">examples/components/Button.js</a>, <a href="examples/components/Button.js.html">line 41</a>
+    </li></ul></dd>
+
+</dl>
+
+</div>
+
+<h3 class="subsection-title">Extends</h3>
+
+<ul>
+        <li><a href="examples/components/Button.html">examples.components.Button</a></li>
+    </ul>
+
+<h3 class="subsection-title">Methods</h3>
+
+<h4 class="name" id="examples.components.OutlineButton#render">render()</h4>
+
+<div class="description">
+    Renders the outline button component.
+</div>
+
+<dl class="details">
+
+<dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="examples/components/Button.html#render">examples.components.Button#render</a>
+    </li></ul></dd>
+
+<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples/components/Button.js.html">examples/components/Button.js</a>, <a href="examples/components/Button.js.html">line 54</a>
+    </li></ul></dd>
+
+</dl>
+
+<h5>Returns:</h5>
+
+<div class="param-desc">
+    The rendered outline button element.
+</div>
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+</dd>
+</dl>
+
+<h4 class="name" id="examples.components.OutlineButton#getName">getName()</h4>
+
+<div class="description">
+    Gets the name of the component.
+</div>
+
+<dl class="details">
+
+<dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="examples/components/Button.html#getName">examples.components.Button#getName</a>
+    </li></ul></dd>
+
+<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples/components/Base.js.html">examples/components/Base.js</a>, <a href="examples/components/Base.js.html">line 20</a>
+    </li></ul></dd>
+
+</dl>
+
+<h5>Returns:</h5>
+
+<div class="param-desc">
+    The name of the component.
+</div>
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+</dd>
+</dl>
+
+<h4 class="name" id="examples.components.OutlineButton#setName">setName(name)</h4>
+
+<div class="description">
+    Sets the name of the component.
+</div>
+
+<h5>Parameters:</h5>
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+
+<th>Type</th>
+
+<th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+<tr>
+            
+                <td class="name"><code>name</code></td>
+
+<td class="type">
+
+<span class="param-type">string</span>
+
+</td>
+
+<td class="description last">The new name of the component.</td>
+        </tr>
+
+</tbody>
+</table>
+
+<dl class="details">
+
+<dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="examples/components/Button.html#setName">examples.components.Button#setName</a>
+    </li></ul></dd>
+
+<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples/components/Base.js.html">examples/components/Base.js</a>, <a href="examples/components/Base.js.html">line 28</a>
+    </li></ul></dd>
+
+</dl>
+
+</article>
+
+</section>
+
+
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

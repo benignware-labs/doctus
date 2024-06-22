@@ -1,0 +1,384 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - markdown.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: markdown.mjs</h1>
+      <p>
+        plugins/markdown/markdown.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span>;
+<span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> { sync <span class="hljs-keyword">as</span> globSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;glob&#x27;</span>;
+<span class="hljs-keyword">import</span> markdownIt <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;markdown-it&#x27;</span>;
+<span class="hljs-keyword">import</span> markdownItFrontMatter <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;markdown-it-front-matter&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { parseFrontMatter } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../utils/parseFrontMatter.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> { humanizeFile } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../../utils/humanizeFile.mjs&#x27;</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">markdownItAssets</span> = (<span class="hljs-params">md, options = {}</span>) =&gt; {
+  <span class="hljs-keyword">const</span> asset = options.<span class="hljs-property">asset</span>;
+
+  md.<span class="hljs-property">renderer</span>.<span class="hljs-property">rules</span>.<span class="hljs-property">image</span> = <span class="hljs-function">(<span class="hljs-params">tokens, idx, options, env, self</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> token = tokens[idx];
+    <span class="hljs-keyword">const</span> src = token.<span class="hljs-title function_">attrGet</span>(<span class="hljs-string">&#x27;src&#x27;</span>);
+
+    <span class="hljs-keyword">if</span> (!src) {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;
+    }
+
+    <span class="hljs-keyword">const</span> assetPath = <span class="hljs-title function_">asset</span>(src);
+
+    token.<span class="hljs-title function_">attrSet</span>(<span class="hljs-string">&#x27;src&#x27;</span>, assetPath);
+
+    <span class="hljs-keyword">return</span> self.<span class="hljs-title function_">renderToken</span>(tokens, idx, options);
+  }
+};
+
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">markdown</span> = (<span class="hljs-params">context</span>) =&gt; {
+  <span class="hljs-keyword">const</span> { cwd, ignore, fs, getAssetHelper } = context;
+  <span class="hljs-keyword">let</span> currentFile = <span class="hljs-string">&#x27;&#x27;</span>;
+
+  <span class="hljs-keyword">const</span> md = <span class="hljs-title function_">markdownIt</span>();
+  
+  md.<span class="hljs-title function_">use</span>(
+    markdownItAssets, {
+      <span class="hljs-keyword">get</span> <span class="hljs-title function_">asset</span>() {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">getAssetHelper</span>({
+          <span class="hljs-attr">cwd</span>: path
+            .<span class="hljs-title function_">dirname</span>(currentFile)
+            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\/$/</span>, <span class="hljs-string">&#x27;&#x27;</span>),
+          fs,
+          <span class="hljs-attr">output</span>: <span class="hljs-string">&#x27;_/[name]-[hash][ext]&#x27;</span>
+        });
+      },
+      <span class="hljs-keyword">get</span> <span class="hljs-title function_">currentFile</span>() {
+        <span class="hljs-keyword">return</span> currentFile;
+      }
+    }
+  ).<span class="hljs-title function_">use</span>(markdownItFrontMatter, <span class="hljs-function">(<span class="hljs-params">fm</span>) =&gt;</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">parseFrontMatter</span>(fm);
+  });
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-keyword">get</span> <span class="hljs-title function_">renderer</span>() {
+      <span class="hljs-keyword">return</span> md;
+    },
+    <span class="hljs-keyword">get</span> <span class="hljs-title function_">currentFile</span>() {
+      <span class="hljs-keyword">return</span> currentFile;
+    },
+    <span class="hljs-keyword">async</span> load () {
+      <span class="hljs-keyword">const</span> files = <span class="hljs-title function_">globSync</span>(<span class="hljs-string">&#x27;**/*.md&#x27;</span>, { cwd, ignore });
+
+      files.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> {
+        
+        <span class="hljs-keyword">let</span> source = <span class="hljs-title function_">readFileSync</span>(file, <span class="hljs-string">&#x27;utf-8&#x27;</span>);
+        
+        <span class="hljs-keyword">const</span> {
+          dest = file
+            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/README\.md$/</span>, <span class="hljs-string">&#x27;index.html&#x27;</span>)
+            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\.md$/</span>, <span class="hljs-string">&#x27;.html&#x27;</span>),
+          title = source.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^#\s*(.*)/m</span>)?.[<span class="hljs-number">1</span>] || file.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\.md$/</span>, <span class="hljs-string">&#x27;&#x27;</span>),
+          name = <span class="hljs-title function_">humanizeFile</span>(path.<span class="hljs-title function_">basename</span>(dest)),
+          ...data
+        } = <span class="hljs-title function_">parseFrontMatter</span>(source);
+
+        source = source.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^#\s*(.*)/m</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+
+        context.<span class="hljs-property">pages</span>.<span class="hljs-title function_">set</span>(dest, {
+          <span class="hljs-attr">view</span>: dest === <span class="hljs-string">&#x27;index.html&#x27;</span> ? <span class="hljs-string">&#x27;index&#x27;</span> : <span class="hljs-string">&#x27;page&#x27;</span>,
+          <span class="hljs-keyword">get</span> <span class="hljs-title function_">content</span>() {
+            currentFile = file;
+            <span class="hljs-keyword">return</span> md.<span class="hljs-title function_">render</span>(source);
+          },
+          title,
+          name,
+          ...data
+        });
+      });
+    }
+  }
+}
+
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> markdown;</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

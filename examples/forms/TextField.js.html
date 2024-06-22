@@ -1,0 +1,324 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - TextField.js</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: TextField.js</h1>
+      <p>
+        examples/forms/TextField.js
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-comment">/**
+ * <span class="hljs-doctag">@namespace</span> examples
+ */</span>
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@namespace</span> examples.forms
+ * <span class="hljs-doctag">@memberof</span> examples
+ */</span>
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@memberof</span> examples.forms
+ * <span class="hljs-doctag">@description</span> Represents a text input field component.
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TextField</span> {
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@constructor</span>
+   * <span class="hljs-doctag">@param</span> {string} label - The label for the text field.
+   */</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">label</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> <span class="hljs-operator">=</span> <span class="hljs-variable">label</span>;
+  }
+
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@method</span> render
+   * <span class="hljs-doctag">@description</span> Renders the text field component.
+   * <span class="hljs-doctag">@returns</span> {string} The rendered HTML markup.
+   */</span>
+  <span class="hljs-title function_">render</span>() {
+    <span class="hljs-keyword">return</span> `<span class="hljs-operator">&lt;</span><span class="hljs-variable">div</span> <span class="hljs-keyword">class</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;text-field&quot;</span><span class="hljs-operator">&gt;</span>
+              <span class="hljs-operator">&lt;</span><span class="hljs-variable">label</span><span class="hljs-operator">&gt;</span>${<span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span>}<span class="hljs-operator">&lt;</span>/<span class="hljs-variable">label</span><span class="hljs-operator">&gt;</span>
+              <span class="hljs-operator">&lt;</span>input <span class="hljs-variable">type</span><span class="hljs-operator">=</span><span class="hljs-string">&quot;text&quot;</span> /<span class="hljs-operator">&gt;</span>
+            <span class="hljs-operator">&lt;</span>/<span class="hljs-variable">div</span><span class="hljs-operator">&gt;</span>`;
+  }
+}
+
+<span class="hljs-variable">module</span>.<span class="hljs-property">exports</span> <span class="hljs-operator">=</span> <span class="hljs-title class_">TextField</span>;</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

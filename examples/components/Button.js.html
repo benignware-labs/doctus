@@ -1,0 +1,447 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - Button.js</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: Button.js</h1>
+      <p>
+        examples/components/Button.js
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-comment">/**
+ * <span class="hljs-doctag">@namespace</span> examples.components
+ * <span class="hljs-doctag">@memberOf</span> <span class="hljs-variable">examples</span>
+ */</span>
+
+<span class="hljs-comment">/**
+ * Represents a button component.
+ * <span class="hljs-doctag">@memberof</span> examples.components
+ * <span class="hljs-doctag">@extends</span> examples.components.Base
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Base</span> {
+  <span class="hljs-comment">/**
+   * Creates a new Button instance.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">text</span> - The text to display on the button.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function</span>} <span class="hljs-variable">onClick</span> - The click event handler for the button.
+   */</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">text, onClick</span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">text</span> = text;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">onClick</span> = onClick;
+  }
+
+  <span class="hljs-comment">/**
+   * Renders the button component.
+   * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">HTMLElement</span>} The rendered button element.
+   */</span>
+  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;button&#x27;</span>);
+    button.<span class="hljs-property">textContent</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">text</span>;
+    button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">onClick</span>);
+    <span class="hljs-keyword">return</span> button;
+  }
+}
+
+
+<span class="hljs-comment">/**
+ * Represents an outline button component.
+ * <span class="hljs-doctag">@memberof</span> examples.components
+ * <span class="hljs-doctag">@extends</span> examples.components.Button
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">OutlineButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Button</span> {
+  <span class="hljs-comment">/**
+   * Creates a new OutlineButton instance.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">text</span> - The text to display on the button.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function</span>} <span class="hljs-variable">onClick</span> - The click event handler for the button.
+   */</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">text, onClick</span>) {
+    <span class="hljs-variable language_">super</span>(text, onClick);
+  }
+  <span class="hljs-comment">/**
+   * Renders the outline button component.
+   * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">HTMLElement</span>} The rendered outline button element.
+   */</span>
+  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">render</span>();
+    button.<span class="hljs-property">classList</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;outline-button&#x27;</span>);
+    <span class="hljs-keyword">return</span> button;
+  }
+}
+
+<span class="hljs-comment">/**
+ * Represents a form control component.
+ * <span class="hljs-doctag">@memberof</span> examples.forms
+ * <span class="hljs-doctag">@extends</span> examples.components.Base
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">FormControl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Base</span> {
+  <span class="hljs-comment">/**
+   * Creates a new FormControl instance.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">label</span> - The label for the form control.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">value</span> - The initial value of the form control.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function</span>} <span class="hljs-variable">onChange</span> - The change event handler for the form control.
+   */</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">label, value, onChange</span>) {
+    <span class="hljs-variable language_">super</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span> = label;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">onChange</span> = onChange;
+  }
+  <span class="hljs-comment">/**
+   * Renders the form control component.
+   * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">HTMLElement</span>} The rendered form control element.
+   */</span>
+  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> container = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);
+    <span class="hljs-keyword">const</span> label = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;label&#x27;</span>);
+    label.<span class="hljs-property">textContent</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span>;
+    <span class="hljs-keyword">const</span> input = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;input&#x27;</span>);
+    input.<span class="hljs-property">value</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>;
+    input.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">onChange</span>);
+    container.<span class="hljs-title function_">appendChild</span>(label);
+    container.<span class="hljs-title function_">appendChild</span>(input);
+    <span class="hljs-keyword">return</span> container;
+  }
+}
+
+<span class="hljs-comment">/**
+ * Represents a checkbox form control component.
+ * <span class="hljs-doctag">@memberof</span> examples.forms
+ * <span class="hljs-doctag">@extends</span> <span class="hljs-variable">FormControl</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">CheckboxControl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">FormControl</span> {
+  <span class="hljs-comment">/**
+   * Creates a new CheckboxControl instance.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">label</span> - The label for the checkbox control.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">boolean</span>} <span class="hljs-variable">checked</span> - The initial checked state of the checkbox control.
+   * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function</span>} <span class="hljs-variable">onChange</span> - The change event handler for the checkbox control.
+   */</span>
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">label, checked, onChange</span>) {
+    <span class="hljs-variable language_">super</span>(label, checked, onChange);
+  }
+  <span class="hljs-comment">/**
+   * Renders the checkbox form control component.
+   * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">HTMLElement</span>} The rendered checkbox control element.
+   */</span>
+  <span class="hljs-title function_">render</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> container = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;div&#x27;</span>);
+    <span class="hljs-keyword">const</span> label = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;label&#x27;</span>);
+    label.<span class="hljs-property">textContent</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">label</span>;
+    <span class="hljs-keyword">const</span> checkbox = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;input&#x27;</span>);
+    checkbox.<span class="hljs-property">type</span> = <span class="hljs-string">&#x27;checkbox&#x27;</span>;
+    checkbox.<span class="hljs-property">checked</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>;
+    checkbox.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;change&#x27;</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">onChange</span>);
+    container.<span class="hljs-title function_">appendChild</span>(label);
+    container.<span class="hljs-title function_">appendChild</span>(checkbox);
+    <span class="hljs-keyword">return</span> container;
+  }
+}
+
+<span class="hljs-comment">/**
+ * An example plain function.
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span> - The name parameter.
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>} The greeting message.
+ */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">greet</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>;
+}
+<span class="hljs-comment">/**
+ * Represents a plain function.
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span> - The name of the function.
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">age</span> - The age of the function.
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>} The result of the function.
+ */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">plainFunction</span>(<span class="hljs-params">name, age</span>) {
+  <span class="hljs-comment">// Function logic goes here</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>! You are <span class="hljs-subst">${age}</span> years old.`</span>;
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@namespace</span> examples.utils
+ */</span>
+<span class="hljs-comment">/**
+ * Represents a utility function.
+ * <span class="hljs-doctag">@memberof</span> <span class="hljs-variable">components</span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">message</span> - The message to display.
+ */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">showMessage</span>(<span class="hljs-params">message</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(message);
+}
+</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

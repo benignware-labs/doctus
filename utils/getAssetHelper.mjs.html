@@ -1,0 +1,377 @@
+<html>
+  <head>
+    <base href=".."/>
+    <title>doctus - getAssetHelper.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: getAssetHelper.mjs</h1>
+      <p>
+        utils/getAssetHelper.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> path from <span class="hljs-string">&#x27;path&#x27;</span>;
+<span class="hljs-keyword">import</span> crypto from <span class="hljs-string">&#x27;crypto&#x27;</span>;
+<span class="hljs-keyword">import</span> { existsSync } from <span class="hljs-string">&#x27;fs&#x27;</span>;
+
+<span class="hljs-keyword">const</span> replacePlaceholders = (str, obj) =&gt; {
+  <span class="hljs-keyword">return</span> str.replace(/\[(\w+)\]/g, (match, key) =&gt; {
+    <span class="hljs-keyword">return</span> obj[key] || match;
+  });
+}
+
+export <span class="hljs-keyword">const</span> getAssetHelper = (options = {}) =&gt; {
+  <span class="hljs-keyword">const</span> {
+    fs,
+    cwd = process.cwd(),
+    output = <span class="hljs-string">&#x27;[name]-[hash][ext]&#x27;</span>,
+    emit = <span class="hljs-literal">true</span>
+  } = options;
+
+  <span class="hljs-keyword">return</span> function asset(file) {
+    <span class="hljs-keyword">const</span> absFile = path.resolve(cwd, file);
+
+    <span class="hljs-keyword">if</span> (!existsSync(absFile)) {
+      <span class="hljs-comment">// throw new Error(`File not found: ${absFile}`);</span>
+      console.warn(`File not found: ${absFile}`);
+      <span class="hljs-comment">// return file;</span>
+    }
+
+    <span class="hljs-keyword">const</span> hash = crypto.createHash(<span class="hljs-string">&#x27;md5&#x27;</span>).update(absFile).digest(<span class="hljs-string">&#x27;hex&#x27;</span>);
+    <span class="hljs-keyword">const</span> ext = path.extname(absFile);
+    <span class="hljs-keyword">const</span> name = path.basename(absFile, ext);
+    <span class="hljs-keyword">const</span> rel = path.relative(cwd, absFile);
+
+    <span class="hljs-keyword">const</span> outputFile = replacePlaceholders(output, { hash, name, ext, path: rel });
+
+    <span class="hljs-keyword">if</span> (emit) {
+      <span class="hljs-keyword">const</span> emitFile = typeof emit === <span class="hljs-string">&#x27;string&#x27;</span> ? path.join(emit, outputFile) : outputFile;
+
+      <span class="hljs-keyword">if</span> (fs) {
+        fs.emit(emitFile, absFile);
+      }
+    }
+    <span class="hljs-keyword">return</span> outputFile;
+  };
+};
+
+
+export <span class="hljs-keyword">const</span> getContentType = (file) =&gt; {
+  <span class="hljs-keyword">const</span> ext = path.extname(file);
+
+  switch (ext) {
+    case <span class="hljs-string">&#x27;.html&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;text/html&#x27;</span>;
+    case <span class="hljs-string">&#x27;.css&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;text/css&#x27;</span>;
+    case <span class="hljs-string">&#x27;.js&#x27;</span>:
+    case <span class="hljs-string">&#x27;.mjs&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;application/javascript&#x27;</span>;
+    case <span class="hljs-string">&#x27;.json&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;application/json&#x27;</span>;
+    case <span class="hljs-string">&#x27;.png&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/png&#x27;</span>;
+    case <span class="hljs-string">&#x27;.jpg&#x27;</span>:
+    case <span class="hljs-string">&#x27;.jpeg&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/jpeg&#x27;</span>;
+    case <span class="hljs-string">&#x27;.gif&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/gif&#x27;</span>;
+    case <span class="hljs-string">&#x27;.svg&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/svg+xml&#x27;</span>;
+    case <span class="hljs-string">&#x27;.woff&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/woff&#x27;</span>;
+    case <span class="hljs-string">&#x27;.woff2&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/woff2&#x27;</span>;
+    case <span class="hljs-string">&#x27;.eot&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;application/vnd.ms-fontobject&#x27;</span>;
+    case <span class="hljs-string">&#x27;.ttf&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/ttf&#x27;</span>;
+    case <span class="hljs-string">&#x27;.otf&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/otf&#x27;</span>;
+    case <span class="hljs-string">&#x27;.mp4&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;video/mp4&#x27;</span>;
+    case <span class="hljs-string">&#x27;.webm&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;video/webm&#x27;</span>;
+    case <span class="hljs-string">&#x27;.ogg&#x27;</span>:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;video/ogg&#x27;</span>;
+    default:
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;text/plain&#x27;</span>;
+  }
+};
+</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,421 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - CheckboxControl</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link active"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>CheckboxControl</h1>
+      
+
+<section>
+
+<header>
+    
+        <h2>CheckboxControl(label, checked, onChange)</h2>
+        
+            <div class="class-description">Represents a checkbox form control component.</div>
+
+</header>
+
+<article>
+    <div class="container-overview">
+
+<h2>Constructor</h2>
+
+<h4 class="name" id="examples.forms.CheckboxControl">new CheckboxControl(label, checked, onChange)</h4>
+
+<div class="description">
+    Creates a new CheckboxControl instance.
+</div>
+
+<h5>Parameters:</h5>
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+
+<th>Type</th>
+
+<th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+<tr>
+            
+                <td class="name"><code>label</code></td>
+
+<td class="type">
+
+<span class="param-type">string</span>
+
+</td>
+
+<td class="description last">The label for the checkbox control.</td>
+        </tr>
+
+<tr>
+            
+                <td class="name"><code>checked</code></td>
+
+<td class="type">
+
+<span class="param-type">boolean</span>
+
+</td>
+
+<td class="description last">The initial checked state of the checkbox control.</td>
+        </tr>
+
+<tr>
+            
+                <td class="name"><code>onChange</code></td>
+
+<td class="type">
+
+<span class="param-type">function</span>
+
+</td>
+
+<td class="description last">The change event handler for the checkbox control.</td>
+        </tr>
+
+</tbody>
+</table>
+
+<dl class="details">
+
+<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples/components/Button.js.html">examples/components/Button.js</a>, <a href="examples/components/Button.js.html">line 101</a>
+    </li></ul></dd>
+
+</dl>
+
+</div>
+
+<h3 class="subsection-title">Extends</h3>
+
+<ul>
+        <li>FormControl</li>
+    </ul>
+
+<h3 class="subsection-title">Methods</h3>
+
+<h4 class="name" id="examples.forms.CheckboxControl#render">render()</h4>
+
+<div class="description">
+    Renders the checkbox form control component.
+</div>
+
+<dl class="details">
+
+<dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="examples/components/Button.js.html">examples/components/Button.js</a>, <a href="examples/components/Button.js.html">line 115</a>
+    </li></ul></dd>
+
+</dl>
+
+<h5>Returns:</h5>
+
+<div class="param-desc">
+    The rendered checkbox control element.
+</div>
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">HTMLElement</span>
+
+</dd>
+</dl>
+
+</article>
+
+</section>
+
+
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,433 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - getTemplateData.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: getTemplateData.mjs</h1>
+      <p>
+        plugins/jsdoc/getTemplateData.mjs
+      </p>
+      
+      <pre><code class="hljs">import { sync as globSync } from <span class="hljs-string">&#x27;glob&#x27;</span>;
+import jsdoc2md from <span class="hljs-string">&#x27;jsdoc-to-markdown&#x27;</span>;
+
+const GLOBAL_PATH = <span class="hljs-string">&#x27;&#x27;</span>;
+
+const getFiles = <span class="hljs-function">(<span class="hljs-params">src = <span class="hljs-string">&#x27;**/*.js&#x27;</span></span>) =&gt;</span> globSync(src, { <span class="hljs-attr">ignore</span>: <span class="hljs-string">&#x27;node_modules/**&#x27;</span> });
+
+const getFileUrl = <span class="hljs-function">(<span class="hljs-params">file</span>) =&gt;</span> {
+  const projectDir = process.cwd();
+  const home = [<span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;src&#x27;</span>, <span class="hljs-string">&#x27;lib&#x27;</span>].<span class="hljs-built_in">map</span>(<span class="hljs-function">(<span class="hljs-params">dir</span>) =&gt;</span> projectDir + <span class="hljs-string">&#x27;/&#x27;</span> + dir);
+  let url = home.<span class="hljs-built_in">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, dir</span>) =&gt;</span> acc.startsWith(dir) ? acc.substring(dir.<span class="hljs-built_in">length</span>) : acc, file);
+
+  url = url.<span class="hljs-built_in">replace</span>((<span class="hljs-regexp">/\.md$/</span>), <span class="hljs-string">&#x27;&#x27;</span>);
+  url = url.<span class="hljs-built_in">replace</span>((<span class="hljs-regexp">/^\/+/</span>), <span class="hljs-string">&#x27;&#x27;</span>);
+  url = url.<span class="hljs-built_in">replace</span>((<span class="hljs-regexp">/\/+$/</span>), <span class="hljs-string">&#x27;&#x27;</span>);
+  url = url.<span class="hljs-built_in">replace</span>(<span class="hljs-regexp">/(?:index)$/</span>, <span class="hljs-string">&#x27;/&#x27;</span>);
+  url = url.<span class="hljs-built_in">replace</span>(<span class="hljs-regexp">/^(?:README)/</span>, <span class="hljs-string">&#x27;/&#x27;</span>);
+  url = url.<span class="hljs-built_in">replace</span>((<span class="hljs-regexp">/^\/+/</span>), <span class="hljs-string">&#x27;&#x27;</span>);
+  <span class="hljs-comment">// url = &#x27;/&#x27; + url;</span>
+
+  <span class="hljs-keyword">return</span> url;
+}
+
+const transformTemplateData = <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> {
+  const namespaces = data
+    .<span class="hljs-built_in">filter</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.kind === <span class="hljs-string">&#x27;namespace&#x27;</span> )
+    .<span class="hljs-built_in">map</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.id);
+
+  data = data
+    .<span class="hljs-built_in">reduce</span>(<span class="hljs-function">(<span class="hljs-params">result, entry</span>) =&gt;</span> {
+      result.<span class="hljs-built_in">push</span>(entry);
+
+      <span class="hljs-keyword">if</span> (entry.kind === <span class="hljs-string">&#x27;namespace&#x27;</span>) {
+        <span class="hljs-keyword">return</span> result;
+      }
+      
+      const paths = entry.longname.<span class="hljs-built_in">split</span>(<span class="hljs-string">&#x27;.&#x27;</span>).<span class="hljs-built_in">slice</span>(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>);
+      const namespace = paths.join(<span class="hljs-string">&#x27;.&#x27;</span>);
+
+      <span class="hljs-keyword">if</span> (namespaces.<span class="hljs-built_in">includes</span>(namespace)) {
+        <span class="hljs-keyword">return</span> result;
+      }
+
+      const entryNamespaces = paths.<span class="hljs-built_in">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, path, index</span>) =&gt;</span> {
+        const id = paths.<span class="hljs-built_in">slice</span>(<span class="hljs-number">0</span>, index + <span class="hljs-number">1</span>).join(<span class="hljs-string">&#x27;.&#x27;</span>);
+
+        acc.<span class="hljs-built_in">push</span>(id);
+
+        <span class="hljs-keyword">return</span> acc;
+      }, []);
+
+      entryNamespaces
+        .<span class="hljs-built_in">filter</span>(<span class="hljs-function">(<span class="hljs-params">namespace</span>) =&gt;</span> !namespaces.<span class="hljs-built_in">includes</span>(namespace))
+        .forEach(<span class="hljs-function">(<span class="hljs-params">namespace, index, <span class="hljs-built_in">array</span></span>) =&gt;</span> {
+          const namespaceEntry = {
+            <span class="hljs-attr">memberof</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            ...entry,
+            <span class="hljs-attr">id</span>: namespace,
+            <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;namespace&#x27;</span>,
+            <span class="hljs-attr">name</span>: namespace.<span class="hljs-built_in">slice</span>(namespace.lastIndexOf(<span class="hljs-string">&#x27;.&#x27;</span>) + <span class="hljs-number">1</span>),
+            <span class="hljs-attr">longname</span>: namespace,
+            <span class="hljs-attr">augments</span>: [],
+            <span class="hljs-comment">// description: &#x27;&#x27;,</span>
+            memberof: <span class="hljs-built_in">array</span>[index - <span class="hljs-number">1</span>] || <span class="hljs-string">&#x27;&#x27;</span>,
+          }
+
+        namespaces.<span class="hljs-built_in">push</span>(namespace);
+
+        result.<span class="hljs-built_in">push</span>(namespaceEntry);
+      });
+
+      <span class="hljs-keyword">return</span> result;
+    }
+  , []);
+
+  data = data
+    .<span class="hljs-built_in">map</span>(<span class="hljs-function">(<span class="hljs-params">entry, index, <span class="hljs-built_in">array</span></span>) =&gt;</span> {
+      const isClass = [<span class="hljs-string">&#x27;class&#x27;</span>].<span class="hljs-built_in">includes</span>(entry.kind);
+      <span class="hljs-comment">// const isConstructor = [&#x27;constructor&#x27;].includes(entry.kind);</span>
+      const isFunction = [<span class="hljs-string">&#x27;class&#x27;</span>, <span class="hljs-string">&#x27;constructor&#x27;</span>, <span class="hljs-string">&#x27;function&#x27;</span>, <span class="hljs-string">&#x27;method&#x27;</span>].<span class="hljs-built_in">includes</span>(entry.kind);
+      const classdesc = isClass &amp;&amp; entry.description ? entry.description : entry.classdesc || <span class="hljs-string">&#x27;&#x27;</span>;
+      const constructor = <span class="hljs-built_in">array</span>
+        .<span class="hljs-built_in">find</span>(<span class="hljs-function">(<span class="hljs-params">member</span>) =&gt;</span> member.memberof === entry.id &amp;&amp; member.kind === <span class="hljs-string">&#x27;constructor&#x27;</span>);
+
+      const params = entry.params || constructor &amp;&amp; constructor.params || [];
+      
+      const signature = isFunction
+        ? entry.signature
+          || params
+              ?  <span class="hljs-string">`(<span class="hljs-subst">${params.<span class="hljs-built_in">map</span>((param) =&gt; param.name).join(<span class="hljs-string">&#x27;, &#x27;</span>)}</span>)`</span>
+              : <span class="hljs-string">&#x27;()&#x27;</span>
+        : <span class="hljs-string">&#x27;&#x27;</span>;
+
+      const file = entry.meta ? <span class="hljs-string">`<span class="hljs-subst">${entry.meta.path}</span>/<span class="hljs-subst">${entry.meta.filename}</span>`</span> : <span class="hljs-string">&#x27;&#x27;</span>;
+
+      <span class="hljs-keyword">return</span> {
+        <span class="hljs-attr">memberof</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+        <span class="hljs-attr">attribs</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+        signature,
+        classdesc,
+        params,
+        ...entry,
+        <span class="hljs-attr">description</span>: constructor ? constructor.description : entry.description,
+        <span class="hljs-attr">meta</span>: entry.meta ? {
+          ...entry.meta,
+          <span class="hljs-attr">shortpath</span>: getFileUrl(file) + <span class="hljs-string">&#x27;.html&#x27;</span>,
+        } : {}
+    };
+    });
+
+
+  const globalObj = {
+    <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;globalobj&#x27;</span>,
+    <span class="hljs-attr">id</span>: GLOBAL_PATH,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Global&#x27;</span>,
+  }
+
+  data.<span class="hljs-built_in">splice</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, globalObj);
+
+  <span class="hljs-keyword">return</span> data;
+} 
+
+export const getTemplateData = async (files = getFiles()) =&gt; {
+  <span class="hljs-keyword">if</span> (!files.<span class="hljs-built_in">length</span>) {
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  const { <span class="hljs-attr">default</span>: jsdoc2md } = await import(<span class="hljs-string">&#x27;jsdoc-to-markdown&#x27;</span>);
+
+  let data = await jsdoc2md.getTemplateData({ files, <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">options</span>: { <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span> } });
+
+  <span class="hljs-keyword">return</span> transformTemplateData(data);
+};
+
+export const getTemplateDataSync = <span class="hljs-function">(<span class="hljs-params">files = getFiles(</span>)) =&gt;</span> {
+  files = files.<span class="hljs-built_in">filter</span>(<span class="hljs-function">(<span class="hljs-params">file</span>) =&gt;</span> /\.m?js$/.test(file));
+
+  <span class="hljs-keyword">if</span> (!files.<span class="hljs-built_in">length</span>) {
+    <span class="hljs-keyword">return</span> [];
+  }
+
+  let data = jsdoc2md.getTemplateDataSync({ files, <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">options</span>: { <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span> } });
+
+  <span class="hljs-keyword">return</span> transformTemplateData(data);
+};</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

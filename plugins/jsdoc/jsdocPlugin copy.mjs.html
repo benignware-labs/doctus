@@ -1,0 +1,353 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - jsdocPlugin copy.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: jsdocPlugin copy.mjs</h1>
+      <p>
+        plugins/jsdoc/jsdocPlugin copy.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> { glob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;glob&#x27;</span>;
+<span class="hljs-keyword">import</span> { existsSync, readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+
+<span class="hljs-keyword">import</span> { getTemplateData, getTemplateDataSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./getTemplateData.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> { getPages } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./getPages.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> { renderDocs } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./renderDocs.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> markdownItJSDoc <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./markdownItJSDoc.mjs&#x27;</span>;
+
+<span class="hljs-keyword">const</span> jsDocPlugin = (<span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">let</span> data = [];
+  <span class="hljs-keyword">let</span> pages = {};
+
+  <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">jsdoc</span>(<span class="hljs-params">req, res, next</span>) {
+    <span class="hljs-keyword">const</span> page = pages[req.<span class="hljs-property">path</span>];
+  
+    <span class="hljs-keyword">const</span> source = data
+      .<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.<span class="hljs-property">meta</span> &amp;&amp; entry.<span class="hljs-property">meta</span>.<span class="hljs-property">shortpath</span> === req.<span class="hljs-property">path</span>)
+      .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> ({
+        <span class="hljs-attr">title</span>: entry.<span class="hljs-property">meta</span>.<span class="hljs-property">filename</span>,
+        <span class="hljs-attr">kind</span>: <span class="hljs-string">&#x27;source&#x27;</span>,
+        <span class="hljs-attr">file</span>: entry.<span class="hljs-property">meta</span>.<span class="hljs-property">path</span> + <span class="hljs-string">&#x27;/&#x27;</span> + entry.<span class="hljs-property">meta</span>.<span class="hljs-property">filename</span>,
+      }))
+      .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">doc</span>) =&gt;</span> ({
+        ...doc,
+        <span class="hljs-attr">code</span>: <span class="hljs-title function_">readFileSync</span>(doc.<span class="hljs-property">file</span>, <span class="hljs-string">&#x27;utf8&#x27;</span>)
+      }))
+      .<span class="hljs-title function_">pop</span>();
+  
+    <span class="hljs-keyword">if</span> (page || source) {
+      <span class="hljs-keyword">const</span> doc = page &amp;&amp; page.<span class="hljs-property">data</span> || source;
+      <span class="hljs-keyword">const</span> template = <span class="hljs-string">`<span class="hljs-subst">${process.cwd()}</span>/views/jsdo/container.ejs`</span>;
+      <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> <span class="hljs-title function_">renderDocs</span>(doc, template, data, pages);
+  
+      <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;page&#x27;</span>, { <span class="hljs-attr">title</span>: doc.<span class="hljs-property">name</span> || doc.<span class="hljs-property">title</span>, content });
+    }
+  
+    <span class="hljs-title function_">next</span>();
+  }
+
+  jsdoc.<span class="hljs-property">doctus</span> = {
+    <span class="hljs-title function_">init</span>(<span class="hljs-params">context</span>) {
+      <span class="hljs-keyword">const</span> markdownPlugin = context.<span class="hljs-property">plugins</span>.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">plugin</span>) =&gt;</span> plugin.<span class="hljs-property">name</span> === <span class="hljs-string">&#x27;markdown&#x27;</span>);
+
+      <span class="hljs-keyword">if</span> (!markdownPlugin) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Markdown plugin not found&#x27;</span>);
+      }
+
+      markdownPlugin.<span class="hljs-property">renderer</span>.<span class="hljs-title function_">use</span>(markdownItJSDoc);
+    },
+    <span class="hljs-title function_">load</span>(<span class="hljs-params">context</span>) {
+      data = <span class="hljs-title function_">getTemplateDataSync</span>(context.<span class="hljs-property">files</span>);
+      pages = <span class="hljs-title function_">getPages</span>(data);
+
+      <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(context.<span class="hljs-property">pages</span>, {
+        ...context.<span class="hljs-property">pages</span>,
+        ...pages
+      });
+    }
+  }
+
+  <span class="hljs-keyword">return</span> jsdoc;
+})();
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> jsDocPlugin;
+</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

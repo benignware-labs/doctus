@@ -1,0 +1,341 @@
+<html>
+  <head>
+    <base href="."/>
+    <title>doctus - cli.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: cli.mjs</h1>
+      <p>
+        cli.mjs
+      </p>
+      
+      <pre><code class="hljs">#! /usr/bin/env node
+
+import { program } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;commander&#x27;</span>;
+import { glob } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;glob&#x27;</span>;
+import doctus <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./doctus.mjs&#x27;</span>;
+
+program
+  .command(<span class="hljs-string">&#x27;serve [src...]&#x27;</span>)
+  .descriptio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;Start the server with the specified glob patterns&#x27;</span>)
+  .optio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;-i, --ignore &lt;patterns...&gt;&#x27;</span>, <span class="hljs-string">&#x27;Ignore the specified glob patterns&#x27;</span>)
+  .optio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;-p, --port &lt;port&gt;&#x27;</span>, <span class="hljs-string">&#x27;Specify the port number&#x27;</span>)
+  .actio<span class="hljs-meta">n</span>(async (src, <span class="hljs-keyword">options</span>) =&gt; {
+    const patterns = src.<span class="hljs-keyword">length</span> &gt; 0 ? src : [<span class="hljs-string">&#x27;**/*.{md,js}&#x27;</span>];
+    const ignorePatterns = <span class="hljs-keyword">options</span>.ignore ? <span class="hljs-keyword">options</span>.ignore : [<span class="hljs-string">&#x27;node_modules/**/&#x27;</span>];
+    const port = <span class="hljs-keyword">options</span>.port || 3030;
+
+    const app = doctus({
+      src: patterns,
+      ignore: ignorePatterns
+    });
+
+    app.liste<span class="hljs-meta">n</span>(port );
+  });
+
+
+program
+  .command(<span class="hljs-string">&#x27;build [src...]&#x27;</span>)
+  .descriptio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;Build docs&#x27;</span>)
+  .optio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;-i, --ignore &lt;patterns...&gt;&#x27;</span>, <span class="hljs-string">&#x27;Ignore the specified glob patterns&#x27;</span>)
+  .optio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;-d, --dest &lt;destination&gt;&#x27;</span>, <span class="hljs-string">&#x27;Specify the destination directory&#x27;</span>)
+  .actio<span class="hljs-meta">n</span>(async (src, <span class="hljs-keyword">options</span>) =&gt; {
+    const app = doctus({
+      src: src.<span class="hljs-keyword">length</span> &gt; 0 ? src : [<span class="hljs-string">&#x27;**/*.{md,js}&#x27;</span>],
+      ignore: <span class="hljs-keyword">options</span>.ignore ? <span class="hljs-keyword">options</span>.ignore : [<span class="hljs-string">&#x27;node_modules/**/&#x27;</span>],
+    });
+
+    app.build(<span class="hljs-keyword">options</span>.dest || <span class="hljs-string">&#x27;docs-build&#x27;</span>);
+  });
+
+  program
+    .command(<span class="hljs-string">&#x27;publish [src...]&#x27;</span>)
+    .descriptio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;Publish docs&#x27;</span>)
+    .optio<span class="hljs-meta">n</span>(<span class="hljs-string">&#x27;-r, --repo &lt;repo&gt;&#x27;</span>, <span class="hljs-string">&#x27;Specify the repository&#x27;</span>)
+    .actio<span class="hljs-meta">n</span>(async (src, <span class="hljs-keyword">options</span>) =&gt; {
+      const app = doctus({
+        src: src.<span class="hljs-keyword">length</span> &gt; 0 ? src : [<span class="hljs-string">&#x27;**/*.{md,js}&#x27;</span>],
+        ignore: <span class="hljs-keyword">options</span>.ignore ? <span class="hljs-keyword">options</span>.ignore : [<span class="hljs-string">&#x27;node_modules/**/&#x27;</span>],
+      });
+  
+      app.publish(<span class="hljs-keyword">options</span>.repo);
+    });
+
+  program.parse(process.argv);</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

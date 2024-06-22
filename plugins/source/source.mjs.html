@@ -1,0 +1,323 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - source.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: source.mjs</h1>
+      <p>
+        plugins/source/source.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;path&#x27;</span>;
+<span class="hljs-keyword">import</span> { sync <span class="hljs-keyword">as</span> globSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;glob&#x27;</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sourcePlugin</span>(<span class="hljs-params">context</span>) {
+  <span class="hljs-keyword">const</span> { cwd, ignore } = context;
+
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">load</span>(<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">const</span> files = <span class="hljs-title function_">globSync</span>(<span class="hljs-string">&#x27;**/*.{js,mjs}&#x27;</span>, { cwd, ignore });
+
+      files.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">file</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> source = <span class="hljs-title function_">readFileSync</span>(file, <span class="hljs-string">&#x27;utf8&#x27;</span>);
+        <span class="hljs-keyword">const</span> destFile = file + <span class="hljs-string">&#x27;.html&#x27;</span>;
+        <span class="hljs-keyword">const</span> title = path.<span class="hljs-title function_">basename</span>(file);
+
+        context.<span class="hljs-property">pages</span>.<span class="hljs-title function_">set</span>(destFile, {
+          <span class="hljs-attr">view</span>: <span class="hljs-string">&#x27;source&#x27;</span>,
+          title,
+          <span class="hljs-attr">basename</span>: path.<span class="hljs-title function_">basename</span>(file),
+          <span class="hljs-attr">path</span>: path.<span class="hljs-title function_">dirname</span>(file),
+          file,
+          <span class="hljs-keyword">get</span> <span class="hljs-title function_">code</span>() {
+            <span class="hljs-keyword">return</span> source;
+          },
+          <span class="hljs-keyword">get</span> <span class="hljs-title function_">code</span>() {
+            <span class="hljs-keyword">return</span> source;
+          },
+        });
+      });
+    },
+  };
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> sourcePlugin;</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

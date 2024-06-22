@@ -1,0 +1,407 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - renderDocs.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: renderDocs.mjs</h1>
+      <p>
+        plugins/jsdoc/renderDocs.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> ejs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;ejs&#x27;</span>;
+<span class="hljs-keyword">import</span> { existsSync, readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> { getTemplateData, getTemplateDataSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./getTemplateData.mjs&#x27;</span>;
+<span class="hljs-keyword">import</span> { getPages } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./getPages.mjs&#x27;</span>;
+
+<span class="hljs-keyword">const</span> __dirname = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(<span class="hljs-string">&#x27;.&#x27;</span>, <span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">url</span>).<span class="hljs-property">pathname</span>.<span class="hljs-title function_">replace</span>((<span class="hljs-regexp">/\/$/</span>), <span class="hljs-string">&#x27;&#x27;</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">TEMPLATE</span> = <span class="hljs-string">`<span class="hljs-subst">${__dirname}</span>/templates/container.ejs`</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">getVars</span> = (<span class="hljs-params">data, pages</span>) =&gt; {
+  <span class="hljs-keyword">const</span> vars = {
+    <span class="hljs-attr">env</span>: {
+      <span class="hljs-attr">version</span>: <span class="hljs-string">&#x27;1.x&#x27;</span>,
+      <span class="hljs-attr">conf</span>: {
+        <span class="hljs-attr">templates</span>: {
+          <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;myjsdoc&#x27;</span>
+        }
+      }
+    },
+    <span class="hljs-attr">nav</span>: [],
+    <span class="hljs-attr">outputSourceFiles</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">params</span>: [],
+    <span class="hljs-attr">returns</span>: [],
+    <span class="hljs-attr">linkto</span>: <span class="hljs-function">(<span class="hljs-params">href = <span class="hljs-literal">null</span>, label = <span class="hljs-string">&#x27;&#x27;</span></span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> hash = href.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">&#x27;#&#x27;</span>) &gt;= <span class="hljs-number">0</span> ? href.<span class="hljs-title function_">substring</span>(href.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">&#x27;#&#x27;</span>)) : <span class="hljs-string">&#x27;&#x27;</span>;
+      <span class="hljs-keyword">const</span> pathname = href.<span class="hljs-title function_">replace</span>(hash, <span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-title function_">trim</span>();
+      
+      <span class="hljs-keyword">let</span> route = <span class="hljs-literal">null</span>;
+      <span class="hljs-keyword">const</span> source = data.<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.<span class="hljs-property">meta</span> &amp;&amp; entry.<span class="hljs-property">meta</span>.<span class="hljs-property">shortpath</span> === href);
+
+      <span class="hljs-keyword">if</span> (source) {
+        route = source.<span class="hljs-property">meta</span>.<span class="hljs-property">shortpath</span>;
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">const</span> [url, page] = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(pages).<span class="hljs-title function_">find</span>(<span class="hljs-function">(<span class="hljs-params">[url, page]</span>) =&gt;</span> page.<span class="hljs-property">data</span>.<span class="hljs-property">id</span> === pathname) || [<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>];
+        <span class="hljs-keyword">const</span> urlPath = url &amp;&amp; url.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/index\.html$/</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+
+        <span class="hljs-keyword">if</span> (url) {
+          route = url + hash;
+        }
+      }
+
+      <span class="hljs-keyword">if</span> (route) {
+        <span class="hljs-comment">// Url is valid</span>
+        <span class="hljs-comment">// href = page ? page.url : source.meta.shortpath;</span>
+        label = label || route.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\.html$/</span>, <span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^\//</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`&lt;a href=&quot;<span class="hljs-subst">${route}</span>&quot;&gt;<span class="hljs-subst">${label}</span>&lt;/a&gt;`</span>;
+      }
+
+      <span class="hljs-keyword">return</span> label;
+    },
+    <span class="hljs-attr">htmlsafe</span>: <span class="hljs-function">(<span class="hljs-params">text</span>) =&gt;</span> {
+      <span class="hljs-keyword">return</span> text;
+    },
+    <span class="hljs-attr">find</span>: <span class="hljs-function">(<span class="hljs-params">{ kind, memberof }</span>) =&gt;</span> {
+      <span class="hljs-keyword">const</span> result = data
+        .<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.<span class="hljs-property">kind</span> === kind)
+        .<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.<span class="hljs-property">memberof</span> === memberof || !entry.<span class="hljs-property">memberof</span> &amp;&amp; memberof &amp;&amp; memberof.<span class="hljs-property">isUndefined</span>);
+
+      <span class="hljs-keyword">return</span> result;
+    }
+  };
+
+  <span class="hljs-keyword">return</span> vars;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">renderDocs</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params">
+  docs,
+  template = TEMPLATE,
+  data = [],
+  pages = {}
+</span>) =&gt; {
+  data = data || <span class="hljs-keyword">await</span> <span class="hljs-title function_">getTemplateData</span>(<span class="hljs-string">&#x27;**/*.js&#x27;</span>);
+  pages = pages || <span class="hljs-title function_">getPages</span>(data);
+  template = <span class="hljs-title function_">existsSync</span>(template) ? template : <span class="hljs-variable constant_">TEMPLATE</span>;
+  docs = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(docs) ? docs : [docs];
+
+  <span class="hljs-keyword">const</span> vars = <span class="hljs-title function_">getVars</span>(data, pages);
+
+  <span class="hljs-keyword">let</span> content = <span class="hljs-keyword">await</span> ejs.<span class="hljs-title function_">renderFile</span>(template, {
+    docs,
+    ...vars,
+    <span class="hljs-attr">_global</span>: vars
+  });
+
+  content = content.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(\n\s*){3,}/g</span>, <span class="hljs-string">&#x27;\n\n&#x27;</span>);
+
+  <span class="hljs-keyword">return</span> content;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">renderDocsSync</span> = (<span class="hljs-params">
+  docs,
+  template = TEMPLATE,
+  data = <span class="hljs-literal">null</span>,
+  pages = <span class="hljs-literal">null</span>
+</span>) =&gt; {
+  data = data || <span class="hljs-title function_">getTemplateDataSync</span>();
+
+  <span class="hljs-keyword">const</span> fns = data.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">entry</span>) =&gt;</span> entry.<span class="hljs-property">kind</span> === <span class="hljs-string">&#x27;function&#x27;</span>);
+  
+  pages = pages || <span class="hljs-title function_">getPages</span>(data);
+  template = <span class="hljs-title function_">existsSync</span>(template) ? template : <span class="hljs-variable constant_">TEMPLATE</span>;
+  docs = <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(docs) ? docs : [docs];
+
+  <span class="hljs-keyword">const</span> vars = <span class="hljs-title function_">getVars</span>(data, pages);
+
+  <span class="hljs-keyword">const</span> templateContent = <span class="hljs-title function_">readFileSync</span>(template, <span class="hljs-string">&#x27;utf8&#x27;</span>);
+
+  <span class="hljs-keyword">let</span> content = ejs.<span class="hljs-title function_">render</span>(templateContent, {
+    <span class="hljs-attr">filename</span>: template,
+    docs,
+    ...vars,
+    <span class="hljs-attr">_global</span>: vars
+  });
+
+  content = content.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(\n\s*){3,}/g</span>, <span class="hljs-string">&#x27;\n\n&#x27;</span>);
+
+  <span class="hljs-keyword">return</span> content;
+}
+</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>

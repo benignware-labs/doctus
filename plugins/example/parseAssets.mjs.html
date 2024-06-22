@@ -1,0 +1,339 @@
+<html>
+  <head>
+    <base href="../.."/>
+    <title>doctus - parseAssets.mjs</title>
+
+    <link rel="stylesheet" href="_/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
+    <link rel="stylesheet" href="_/highlight-c281e701b2830b095c67417cd9a7b210.css">
+    <link rel="stylesheet" href="_/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+
+    <script src="~/plugins/core/example/ExampleViewer.js"></script>
+  </head>
+  <body class="markdown-body flex-column">
+    <div class="header flex">
+      <a class="header-brand" href="./index.html">doctus</a>
+      
+<ul class="menu flex align-center justify-center">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+    </li>
+    
+  
+</ul>
+    </div>
+      
+      
+
+<main class="flex-grow flex h-100">
+  <div class="sidebar border-right mr-2 flex-noshrink">
+  
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Examples
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/code-preview.html"
+        
+        
+      >
+        Code Preview
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Components
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/test.html"
+        
+        
+      >
+        Test
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Panel.html"
+        
+        
+      >
+        Panel
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Button.html"
+        
+        
+      >
+        Button
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/OutlineButton.html"
+        
+        
+      >
+        OutlineButton
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/components/Base.html"
+        
+        
+      >
+        Base
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/index.html"
+        
+        
+          role="button"
+          
+          aria-expanded="false"
+        
+      >
+        Forms
+      </a>
+      
+        
+<ul class="menu">
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/TextField.html"
+        
+        
+      >
+        TextField
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/FormControl.html"
+        
+        
+      >
+        FormControl
+      </a>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/forms/CheckboxControl.html"
+        
+        
+      >
+        CheckboxControl
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+    
+    <li class="menu-item">
+      <a 
+        class="menu-link"
+        
+          href="examples/utils/index.html"
+        
+        
+      >
+        Utils
+      </a>
+      
+    </li>
+    
+  
+</ul>
+      
+    </li>
+    
+  
+</ul>
+</div>
+  <div class="flex-grow">
+    <div class="container py-4">
+      <h1>Source: parseAssets.mjs</h1>
+      <p>
+        plugins/example/parseAssets.mjs
+      </p>
+      
+      <pre><code class="hljs"><span class="hljs-keyword">import</span> path from <span class="hljs-string">&#x27;path&#x27;</span>;
+<span class="hljs-keyword">import</span> fs from <span class="hljs-string">&#x27;fs&#x27;</span>;
+
+// const <span class="hljs-title class_">ASSET_PATTERN</span> = /(?<span class="hljs-symbol">:</span>\.+\/)*(?<span class="hljs-symbol">:</span>[\w-_])*\.(?<span class="hljs-symbol">:css|js|mjs|jpe?g|webp|png|gif|svg|woff2?|eot|ttf|otf|mp4|webm|ogg|mp3|wav|flac|aac|zip|tar|tgz|gz|rar|bz2|</span><span class="hljs-number">7</span>z|pdf|epub|exe|swf|rtf|docx?|pptx?|xls|csv|json|yaml|yml|toml|xml|html?)<span class="hljs-variable">$/</span>ig;
+const <span class="hljs-title class_">ASSET_PATTERN</span> = /(?<span class="hljs-symbol">:</span>[\w-_\.]+\/)*[\w-_]+\.(?<span class="hljs-symbol">:css|js|mjs|jpe?g|webp|png|gif|svg|woff2?|eot|ttf|otf|mp4|webm|ogg|mp3|wav|flac|aac|zip|tar|tgz|gz|rar|bz2|</span><span class="hljs-number">7</span>z|pdf|epub|exe|swf|rtf|docx?|pptx?|xls|csv|json|yaml|yml|toml|xml|html?)/g;
+
+export const parseAssets = (html, options = {}) =&gt; {
+  const { cwd = process.cwd(), asset } = options;
+  const assets = [];
+
+  const matches = html.matchAll(<span class="hljs-title class_">ASSET_PATTERN</span>);
+
+  let output = <span class="hljs-string">&#x27;&#x27;</span>;
+  let lastIndex = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">for</span> (const match of matches) {
+    const index = match.index;
+    const <span class="hljs-keyword">end</span> = index + match[<span class="hljs-number">0</span>].length;
+    const before = html.substring(lastIndex, index);
+
+    const url = match[<span class="hljs-number">0</span>];
+    const file = path.resolve(cwd, url);
+
+    const dest = fs.existsSync(file) ? asset(file) : url;
+
+    output+= before + dest;
+
+    <span class="hljs-keyword">if</span> (file) {
+      assets.push(file);
+    }
+
+    lastIndex = <span class="hljs-keyword">end</span>;
+  }
+
+  const rest = html.substring(lastIndex);
+  output+= rest;
+
+
+  return output;
+};
+
+
+const <span class="hljs-title class_">FONT_FACE_PATTERN</span> = /<span class="hljs-variable">@font</span>-face\s*{[^}]*}/g;
+
+export const parseAndStripFontFace = (css) =&gt; {
+  const fontFaces = css.match(<span class="hljs-title class_">FONT_FACE_PATTERN</span>) || [];
+
+  const stripped = css.replace(<span class="hljs-title class_">FONT_FACE_PATTERN</span>, <span class="hljs-string">&#x27;&#x27;</span>);
+
+  return { fontFaces, stripped };
+}</code></pre>
+    </div>
+  </div>
+</main>
+
+    <div class="footer">
+      <div class="center">
+        &copy; 2018 <a href="https//benignware.com">Benignware</a>
+      </div>
+    </div>
+  </body>
+</html>
