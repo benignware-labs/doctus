@@ -7,6 +7,8 @@ import { renderDocsSync } from './renderDocs.mjs';
 import markdownItJSDoc from './markdownItJSDoc.mjs';
 import markdown from '../markdown/markdown.mjs';
 
+const PATTERN = '**/*.js'; // FIXME: Only .js extension is supported
+
 function jsDocPlugin(context) {
   const { cwd, ignore } = context;
 
@@ -17,7 +19,7 @@ function jsDocPlugin(context) {
       markdownPlugin.renderer.use(markdownItJSDoc);
     },
     async load() {
-      const files = globSync('**/*.{js,mjs}', { cwd, ignore });
+      const files = globSync(PATTERN, { cwd, ignore });
       
       const data = getTemplateDataSync(files);
       const pages = getPages(data);
