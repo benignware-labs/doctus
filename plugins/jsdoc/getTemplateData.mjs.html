@@ -39,11 +39,13 @@
       <nav class="links">
         
           
-            <a href="https://github.com/benignware-labs/doctus.git">
-              
-              <i class="fa-brands fa-github"></i>
-              <!--<label>github</label>-->
-            </a>
+            
+              <a href="https://github.com/benignware-labs/doctus.git">
+                
+                <i class="fa-brands fa-github"></i>
+                <!--<label>github</label>-->
+              </a>
+            
           
         
       </nav>
@@ -422,11 +424,11 @@ export const getTemplateData = async (files = getFiles()) =&gt; {
 };
 
 export const getTemplateDataSync = <span class="hljs-function">(<span class="hljs-params">files = getFiles(</span>)) =&gt;</span> {
-  files = files.<span class="hljs-built_in">filter</span>(<span class="hljs-function">(<span class="hljs-params">file</span>) =&gt;</span> /\.m?js$/.test(file));
-
   <span class="hljs-keyword">if</span> (!files.<span class="hljs-built_in">length</span>) {
     <span class="hljs-keyword">return</span> [];
   }
+
+  <span class="hljs-built_in">console</span>.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;FILES: &#x27;</span>, files);
 
   let data = jsdoc2md.getTemplateDataSync({ files, <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">options</span>: { <span class="hljs-string">&#x27;no-cache&#x27;</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">noCache</span>: <span class="hljs-literal">true</span> } });
 

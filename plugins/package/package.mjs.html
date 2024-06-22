@@ -39,11 +39,13 @@
       <nav class="links">
         
           
-            <a href="https://github.com/benignware-labs/doctus.git">
-              
-              <i class="fa-brands fa-github"></i>
-              <!--<label>github</label>-->
-            </a>
+            
+              <a href="https://github.com/benignware-labs/doctus.git">
+                
+                <i class="fa-brands fa-github"></i>
+                <!--<label>github</label>-->
+              </a>
+            
           
         
       </nav>
@@ -328,13 +330,15 @@ const packageJson = <span class="hljs-function"><span class="hljs-params">(conte
       <span class="hljs-keyword">if</span> (name === <span class="hljs-string">&#x27;links&#x27;</span>) {
         content+= `<span class="language-javascript">
           &lt;% <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> packageJson !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { %&gt;
-            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;&lt;%- packageJson.repository.url %&gt;&quot;</span>&gt;</span>
-              &lt;%
-                const brand = packageJson.repository.url.replace(&#x27;https://&#x27;, &#x27;&#x27;).split(&#x27;/&#x27;)[0].split(&#x27;.&#x27;)[0];
-              %&gt;
-              &lt;%- icon(brand, { category: &#x27;brands&#x27; }) %&gt;
-              <span class="hljs-comment">&lt;!--&lt;label&gt;&lt;%- brand %&gt;&lt;/label&gt;--&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+            &lt;% <span class="hljs-keyword">if</span> (packageJson.<span class="hljs-property">repository</span>) { %&gt;
+              <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;&lt;%- packageJson.repository.url %&gt;&quot;</span>&gt;</span>
+                &lt;%
+                  const brand = packageJson.repository.url.replace(&#x27;https://&#x27;, &#x27;&#x27;).split(&#x27;/&#x27;)[0].split(&#x27;.&#x27;)[0];
+                %&gt;
+                &lt;%- icon(brand, { category: &#x27;brands&#x27; }) %&gt;
+                <span class="hljs-comment">&lt;!--&lt;label&gt;&lt;%- brand %&gt;&lt;/label&gt;--&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+            &lt;% } %&gt;
           &lt;% } %&gt;
         </span>`;
       }

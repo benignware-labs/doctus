@@ -39,11 +39,13 @@
       <nav class="links">
         
           
-            <a href="https://github.com/benignware-labs/doctus.git">
-              
-              <i class="fa-brands fa-github"></i>
-              <!--<label>github</label>-->
-            </a>
+            
+              <a href="https://github.com/benignware-labs/doctus.git">
+                
+                <i class="fa-brands fa-github"></i>
+                <!--<label>github</label>-->
+              </a>
+            
           
         
       </nav>
@@ -287,23 +289,32 @@
         utils/parseFrontMatter.mjs
       </p>
       
-      <pre><code class="hljs"><span class="hljs-title">export</span> const parseFrontMatter = (content) =&gt; {
-  const <span class="hljs-class"><span class="hljs-keyword">data</span> = {};</span>
-  const lines = content.split(<span class="hljs-string">&#x27;<span class="hljs-char escape_">\n</span>&#x27;</span>);
-  <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>;
-  
-  <span class="hljs-keyword">if</span> (lines[i] === &#x27;<span class="hljs-comment">---&#x27;) {</span>
+      <pre><code class="hljs">export <span class="hljs-keyword">const</span> parseFrontMatter = (
+  content,
+  <span class="hljs-keyword">open</span> = [<span class="hljs-string">&#x27;---&#x27;</span>, <span class="hljs-string">&#x27;&lt;!--&#x27;</span>],
+  close = [<span class="hljs-string">&#x27;---&#x27;</span>, <span class="hljs-string">&#x27;--&gt;&#x27;</span>]
+) =&gt; {
+  <span class="hljs-keyword">const</span> <span class="hljs-keyword">data</span> = {};
+  <span class="hljs-keyword">const</span> lines = content.split(<span class="hljs-string">&#x27;\n&#x27;</span>);
+  let i = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">open</span>.includes(lines[i].trim())) {
     i++;
     
-    while (lines[i] !== &#x27;<span class="hljs-comment">---&#x27;) {</span>
-      const [key, value] = lines[i].split(<span class="hljs-string">&#x27;:&#x27;</span>);
+    <span class="hljs-keyword">while</span> (!close.includes(lines[i].trim())) {
+      <span class="hljs-keyword">const</span> [key, value] = lines[i].split(<span class="hljs-string">&#x27;:&#x27;</span>);
       
-      <span class="hljs-class"><span class="hljs-keyword">data</span>[key.trim()] = value.trim();</span>
+      <span class="hljs-keyword">data</span>[key.trim()] = value.trim();
       i++;
     }
   }
   
-  return <span class="hljs-class"><span class="hljs-keyword">data</span>;</span>
+  <span class="hljs-keyword">const</span> source = Object.keys(<span class="hljs-keyword">data</span>).length &gt; <span class="hljs-number">0</span> ? lines.slice(i + <span class="hljs-number">1</span>).join(<span class="hljs-string">&#x27;\n&#x27;</span>).trim() : content;
+  
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-keyword">data</span>,
+    source
+  };
 }</code></pre>
     </div>
   </div>
