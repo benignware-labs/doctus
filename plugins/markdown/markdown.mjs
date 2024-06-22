@@ -2,7 +2,6 @@ import path from 'path';
 import { readFileSync } from 'fs';
 import { sync as globSync } from 'glob';
 import markdownIt from 'markdown-it';
-import markdownItFrontMatter from 'markdown-it-front-matter';
 
 import { parseFrontMatter } from '../../utils/parseFrontMatter.mjs';
 import { humanizeFile } from '../../utils/humanizeFile.mjs';
@@ -48,9 +47,9 @@ const markdown = (context) => {
         return currentFile;
       }
     }
-  ).use(markdownItFrontMatter, (fm) => {
+  )/*.use(markdownItFrontMatter, (fm) => {
     return parseFrontMatter(fm);
-  });
+  });*/
 
   return {
     get renderer() {
@@ -63,17 +62,16 @@ const markdown = (context) => {
       const files = globSync('**/*.md', { cwd, ignore });
 
       files.forEach(file => {
-        
-        let source = readFileSync(file, 'utf-8');
-        
-        const {
-          dest = file
-            .replace(/README\.md$/, 'index.html')
-            .replace(/\.md$/, '.html'),
-          title = source.match(/^#\s*(.*)/m)?.[1] || file.replace(/\.md$/, ''),
-          name = humanizeFile(path.basename(dest)),
-          ...data
-        } = parseFrontMatter(source);
+        let { data, source } = parseFrontMatter(readFileSync(file, 'utf-8'));
+
+        const dest = data.dest || file
+          .replace(/README\.md$/, 'index.html')
+          .replace(/\.md$/, '.html');
+
+        console.log('dest.:', dest, source.substring(0, 10), source.match(/^#\s*(.*)/m)?.[1]);
+
+        const title = data.title || source.match(/^#\s*(.*)/m)?.[1] || file.replace(/\.md$/, '');
+        const name = data.name || humanizeFile(path.basename(dest));
 
         source = source.replace(/^#\s*(.*)/m, '');
 

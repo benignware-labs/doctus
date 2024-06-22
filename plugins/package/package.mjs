@@ -39,13 +39,15 @@ const packageJson = (context) => {
       if (name === 'links') {
         content+= `
           <% if (typeof packageJson !== 'undefined') { %>
-            <a href="<%- packageJson.repository.url %>">
-              <%
-                const brand = packageJson.repository.url.replace('https://', '').split('/')[0].split('.')[0];
-              %>
-              <%- icon(brand, { category: 'brands' }) %>
-              <!--<label><%- brand %></label>-->
-            </a>
+            <% if (packageJson.repository) { %>
+              <a href="<%- packageJson.repository.url %>">
+                <%
+                  const brand = packageJson.repository.url.replace('https://', '').split('/')[0].split('.')[0];
+                %>
+                <%- icon(brand, { category: 'brands' }) %>
+                <!--<label><%- brand %></label>-->
+              </a>
+            <% } %>
           <% } %>
         `;
       }

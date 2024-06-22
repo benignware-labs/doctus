@@ -1,12 +1,16 @@
-export const parseFrontMatter = (content) => {
+export const parseFrontMatter = (
+  content,
+  open = ['---', '<!--'],
+  close = ['---', '-->']
+) => {
   const data = {};
   const lines = content.split('\n');
   let i = 0;
-  
-  if (lines[i] === '---') {
+
+  if (open.includes(lines[i].trim())) {
     i++;
     
-    while (lines[i] !== '---') {
+    while (!close.includes(lines[i].trim())) {
       const [key, value] = lines[i].split(':');
       
       data[key.trim()] = value.trim();
@@ -14,5 +18,10 @@ export const parseFrontMatter = (content) => {
     }
   }
   
-  return data;
+  const source = Object.keys(data).length > 0 ? lines.slice(i + 1).join('\n').trim() : content;
+  
+  return {
+    data,
+    source
+  };
 }

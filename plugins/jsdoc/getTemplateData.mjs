@@ -133,11 +133,11 @@ export const getTemplateData = async (files = getFiles()) => {
 };
 
 export const getTemplateDataSync = (files = getFiles()) => {
-  files = files.filter((file) => /\.m?js$/.test(file));
-
   if (!files.length) {
     return [];
   }
+
+  console.log('FILES: ', files);
 
   let data = jsdoc2md.getTemplateDataSync({ files, 'no-cache': true, noCache: true, options: { 'no-cache': true, noCache: true } });
 
