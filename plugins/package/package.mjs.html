@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="public/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
     <link rel="stylesheet" href="public/highlight-c281e701b2830b095c67417cd9a7b210.css">
     <link rel="stylesheet" href="public/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+    <link rel="stylesheet" href="public/all-cc69a8b8824029ae06797ee01a3cc5c8.css">
 
     <script src="public/plugins/core/example/ExampleViewer.js"></script>
   </head>
@@ -35,6 +36,17 @@
     
   
 </ul>
+      <nav class="links">
+        
+          
+            <a href="https://github.com/benignware-labs/doctus.git">
+              
+              <i class="fa-brands fa-github"></i>
+              <!--<label>github</label>-->
+            </a>
+          
+        
+      </nav>
     </div>
       
       
@@ -278,20 +290,56 @@
       <pre><code class="hljs"><span class="hljs-keyword">import</span> { join <span class="hljs-keyword">as</span> pathJoin } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
 <span class="hljs-keyword">import</span> readJsonSync <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;read-json-sync&quot;</span>;
 
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">packageJson</span> = (<span class="hljs-params">context</span>) =&gt; {
+const packageJson = <span class="hljs-function"><span class="hljs-params">(context)</span> =&gt;</span> {
   <span class="hljs-keyword">return</span> {
-    <span class="hljs-title function_">load</span>(<span class="hljs-params"></span>) {
-      <span class="hljs-keyword">const</span> projectDir = process.<span class="hljs-title function_">cwd</span>();
-      <span class="hljs-keyword">const</span> packageJsonPath = <span class="hljs-title function_">pathJoin</span>(projectDir, <span class="hljs-string">&#x27;package.json&#x27;</span>);
-      <span class="hljs-keyword">const</span> packageJson = <span class="hljs-title function_">readJsonSync</span>(packageJsonPath);
+    load() {
+      const projectDir = process.cwd();
+      const packageJsonPath = pathJoin(projectDir, <span class="hljs-string">&#x27;package.json&#x27;</span>);
+      const packageJson = readJsonSync(packageJsonPath);
 
       <span class="hljs-keyword">if</span> (!packageJson) {
         <span class="hljs-keyword">return</span>;
       }
 
-      context.<span class="hljs-property">locals</span>.<span class="hljs-property">packageJson</span> = { ...packageJson };
-      context.<span class="hljs-property">locals</span>.<span class="hljs-property">site</span>.<span class="hljs-property">title</span> = packageJson.<span class="hljs-property">name</span>;
-      context.<span class="hljs-property">locals</span>.<span class="hljs-property">site</span>.<span class="hljs-property">description</span> = packageJson.<span class="hljs-property">description</span>;
+      context.locals.packageJson = { ...packageJson };
+      context.locals.site.title = packageJson.name;
+      context.locals.site.description = packageJson.description;
+    },
+    slot(name, content) {
+      <span class="hljs-keyword">if</span> (name === <span class="hljs-string">&#x27;about&#x27;</span>) {
+        content+=`<span class="language-javascript">
+          &lt;% <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> packageJson !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { %&gt;
+            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Version<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span>
+            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+              &lt;%- packageJson.version %&gt;
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+            &lt;% <span class="hljs-keyword">if</span> (packageJson.<span class="hljs-property">repository</span>) { %&gt;
+              <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Repository<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span></span>
+              <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;&lt;%- packageJson.repository.url %&gt;&quot;</span>&gt;</span>
+                  &lt;%- packageJson.repository.url.replace(/^https?:\\/\\//, &#x27;&#x27;) %&gt;
+                <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+              <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+            &lt;% } %&gt;
+          &lt;% } %&gt;
+        </span>`;
+      }
+
+      <span class="hljs-keyword">if</span> (name === <span class="hljs-string">&#x27;links&#x27;</span>) {
+        content+= `<span class="language-javascript">
+          &lt;% <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> packageJson !== <span class="hljs-string">&#x27;undefined&#x27;</span>) { %&gt;
+            <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;&lt;%- packageJson.repository.url %&gt;&quot;</span>&gt;</span>
+              &lt;%
+                const brand = packageJson.repository.url.replace(&#x27;https://&#x27;, &#x27;&#x27;).split(&#x27;/&#x27;)[0].split(&#x27;.&#x27;)[0];
+              %&gt;
+              &lt;%- icon(brand, { category: &#x27;brands&#x27; }) %&gt;
+              <span class="hljs-comment">&lt;!--&lt;label&gt;&lt;%- brand %&gt;&lt;/label&gt;--&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>
+          &lt;% } %&gt;
+        </span>`;
+      }
+
+      <span class="hljs-keyword">return</span> content;
     }
   };
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="public/github-markdown.min-05fea8df8ec68cb6c27337f6db65733e.css">
     <link rel="stylesheet" href="public/highlight-c281e701b2830b095c67417cd9a7b210.css">
     <link rel="stylesheet" href="public/style-aea3468ccb7ee0c3c4c2b5d339fc989e.css">
+    <link rel="stylesheet" href="public/all-cc69a8b8824029ae06797ee01a3cc5c8.css">
 
     <script src="public/plugins/core/example/ExampleViewer.js"></script>
   </head>
@@ -35,6 +36,17 @@
     
   
 </ul>
+      <nav class="links">
+        
+          
+            <a href="https://github.com/benignware-labs/doctus.git">
+              
+              <i class="fa-brands fa-github"></i>
+              <!--<label>github</label>-->
+            </a>
+          
+        
+      </nav>
     </div>
       
       
@@ -277,90 +289,146 @@
       
       <pre><code class="hljs"><span class="hljs-keyword">import</span> path from <span class="hljs-string">&#x27;path&#x27;</span>;
 <span class="hljs-keyword">import</span> crypto from <span class="hljs-string">&#x27;crypto&#x27;</span>;
-<span class="hljs-keyword">import</span> { existsSync } from <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> { existsSync, readFileSync } from <span class="hljs-string">&#x27;fs&#x27;</span>;
+<span class="hljs-keyword">import</span> findNodeModules from <span class="hljs-string">&#x27;find-node-modules&#x27;</span>;
+<span class="hljs-keyword">import</span> fs from <span class="hljs-string">&#x27;fs&#x27;</span>;
 
-<span class="hljs-keyword">const</span> replacePlaceholders = (str, obj) =&gt; {
-  <span class="hljs-keyword">return</span> str.replace(/\[(\w+)\]/g, (match, key) =&gt; {
-    <span class="hljs-keyword">return</span> obj[key] || match;
+const <span class="hljs-title class_">ASSET_PATTERN</span> = /(?<span class="hljs-symbol">:</span>[\w-_\.]+\/)*[\w-_]+\.(?<span class="hljs-symbol">:css|js|mjs|jpe?g|webp|png|gif|svg|woff2?|eot|ttf|otf|mp4|webm|ogg|mp3|wav|flac|aac|zip|tar|tgz|gz|rar|bz2|</span><span class="hljs-number">7</span>z|pdf|epub|exe|swf|rtf|docx?|pptx?|xls|csv|json|yaml|yml|toml|xml|html?)/g;
+const <span class="hljs-title class_">ASSET_IMPORTER_TYPES</span> = [<span class="hljs-string">&#x27;css&#x27;</span>, <span class="hljs-string">&#x27;js&#x27;</span>, <span class="hljs-string">&#x27;mjs&#x27;</span>, <span class="hljs-string">&#x27;json&#x27;</span>, <span class="hljs-string">&#x27;yaml&#x27;</span>, <span class="hljs-string">&#x27;yml&#x27;</span>, <span class="hljs-string">&#x27;toml&#x27;</span>, <span class="hljs-string">&#x27;xml&#x27;</span>, <span class="hljs-string">&#x27;html&#x27;</span>, <span class="hljs-string">&#x27;svg&#x27;</span>];
+
+const parseAssets = (html, options = {}) =&gt; {
+  const { cwd = process.cwd(), asset } = options;
+  const assets = [];
+
+  const matches = html.matchAll(<span class="hljs-title class_">ASSET_PATTERN</span>);
+
+  let output = <span class="hljs-string">&#x27;&#x27;</span>;
+  let lastIndex = <span class="hljs-number">0</span>;
+
+  <span class="hljs-keyword">for</span> (const match of matches) {
+    const index = match.index;
+    const <span class="hljs-keyword">end</span> = index + match[<span class="hljs-number">0</span>].length;
+    const before = html.substring(lastIndex, index);
+
+    const url = match[<span class="hljs-number">0</span>];
+    const file = path.resolve(cwd, url);
+
+    const dest = fs.existsSync(file) ? asset(file) : url;
+
+    output+= before + dest;
+
+    <span class="hljs-keyword">if</span> (file) {
+      assets.push(file);
+    }
+
+    lastIndex = <span class="hljs-keyword">end</span>;
+  }
+
+  const rest = html.substring(lastIndex);
+  output+= rest;
+
+  return output;
+};
+
+const replacePlaceholders = (str, obj) =&gt; {
+  return str.replace(/\[(\w+)\]/g, (match, key) =&gt; {
+    return obj[key] || match;
   });
 }
 
-export <span class="hljs-keyword">const</span> getAssetHelper = (options = {}) =&gt; {
-  <span class="hljs-keyword">const</span> {
+export const getAssetHelper = (options = {}) =&gt; {
+  const {
     fs,
     cwd = process.cwd(),
     output = <span class="hljs-string">&#x27;[name]-[hash][ext]&#x27;</span>,
     emit = <span class="hljs-literal">true</span>
   } = options;
 
-  <span class="hljs-keyword">return</span> function asset(file) {
-    <span class="hljs-keyword">const</span> absFile = path.resolve(cwd, file);
+  return function asset(file) {
+    let absFile;
 
-    <span class="hljs-keyword">if</span> (!existsSync(absFile)) {
-      <span class="hljs-comment">// throw new Error(`File not found: ${absFile}`);</span>
-      console.warn(`File not found: ${absFile}`);
-      <span class="hljs-comment">// return file;</span>
+    <span class="hljs-keyword">if</span> (file.startsWith(<span class="hljs-string">&#x27;~&#x27;</span>)) {
+      file = file.slice(<span class="hljs-number">1</span>);
+      const paths = findNodeModules({ cwd });
+      absFile = paths.map(p =&gt; path.join(cwd, p, file)).find(existsSync);
+    } <span class="hljs-keyword">else</span> {
+      absFile = path.resolve(cwd, file);
     }
 
-    <span class="hljs-keyword">const</span> hash = crypto.createHash(<span class="hljs-string">&#x27;md5&#x27;</span>).update(absFile).digest(<span class="hljs-string">&#x27;hex&#x27;</span>);
-    <span class="hljs-keyword">const</span> ext = path.extname(absFile);
-    <span class="hljs-keyword">const</span> name = path.basename(absFile, ext);
-    <span class="hljs-keyword">const</span> rel = path.relative(cwd, absFile);
+    <span class="hljs-keyword">if</span> (!existsSync(absFile)) {
+      // throw new <span class="hljs-title class_">Error</span>(`<span class="hljs-title class_">File</span> <span class="hljs-keyword">not</span> <span class="hljs-symbol">found:</span> <span class="hljs-variable">${</span>absFile}`);
+      console.warn(`<span class="hljs-title class_">File</span> <span class="hljs-keyword">not</span> <span class="hljs-symbol">found:</span> <span class="hljs-variable">${</span>absFile}`);
+      // return file;
+    }
 
-    <span class="hljs-keyword">const</span> outputFile = replacePlaceholders(output, { hash, name, ext, path: rel });
+    const hash = crypto.createHash(<span class="hljs-string">&#x27;md5&#x27;</span>).update(absFile).digest(<span class="hljs-string">&#x27;hex&#x27;</span>);
+    const ext = path.extname(absFile);
+    const name = path.basename(absFile, ext);
+    const rel = path.relative(cwd, absFile);
+
+    const outputFile = replacePlaceholders(output, { hash, name, ext, <span class="hljs-symbol">path:</span> rel });
 
     <span class="hljs-keyword">if</span> (emit) {
-      <span class="hljs-keyword">const</span> emitFile = typeof emit === <span class="hljs-string">&#x27;string&#x27;</span> ? path.join(emit, outputFile) : outputFile;
+      const emitFile = typeof emit === <span class="hljs-string">&#x27;string&#x27;</span> ? path.join(emit, outputFile) : outputFile;
+      const isImporter = <span class="hljs-title class_">ASSET_IMPORTER_TYPES</span>.includes(ext.slice(<span class="hljs-number">1</span>));
 
-      <span class="hljs-keyword">if</span> (fs) {
+      <span class="hljs-keyword">if</span> (isImporter) {
+        const content = readFileSync(absFile, <span class="hljs-string">&#x27;utf-8&#x27;</span>);
+        const parsed = parseAssets(content, {
+          <span class="hljs-symbol">cwd:</span> path.dirname(absFile),
+          <span class="hljs-symbol">asset:</span> getAssetHelper({ fs, cwd, output, <span class="hljs-symbol">emit:</span> path.dirname(emitFile) })
+        });
+
+        fs.emit(emitFile, parsed);
+      } <span class="hljs-keyword">else</span> {
         fs.emit(emitFile, absFile);
       }
     }
-    <span class="hljs-keyword">return</span> outputFile;
+    return outputFile;
   };
 };
 
 
-export <span class="hljs-keyword">const</span> getContentType = (file) =&gt; {
-  <span class="hljs-keyword">const</span> ext = path.extname(file);
+export const getContentType = (file) =&gt; {
+  const ext = path.extname(file);
 
   switch (ext) {
-    case <span class="hljs-string">&#x27;.html&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;text/html&#x27;</span>;
-    case <span class="hljs-string">&#x27;.css&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;text/css&#x27;</span>;
-    case <span class="hljs-string">&#x27;.js&#x27;</span>:
-    case <span class="hljs-string">&#x27;.mjs&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;application/javascript&#x27;</span>;
-    case <span class="hljs-string">&#x27;.json&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;application/json&#x27;</span>;
-    case <span class="hljs-string">&#x27;.png&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/png&#x27;</span>;
-    case <span class="hljs-string">&#x27;.jpg&#x27;</span>:
-    case <span class="hljs-string">&#x27;.jpeg&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/jpeg&#x27;</span>;
-    case <span class="hljs-string">&#x27;.gif&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/gif&#x27;</span>;
-    case <span class="hljs-string">&#x27;.svg&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;image/svg+xml&#x27;</span>;
-    case <span class="hljs-string">&#x27;.woff&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/woff&#x27;</span>;
-    case <span class="hljs-string">&#x27;.woff2&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/woff2&#x27;</span>;
-    case <span class="hljs-string">&#x27;.eot&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;application/vnd.ms-fontobject&#x27;</span>;
-    case <span class="hljs-string">&#x27;.ttf&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/ttf&#x27;</span>;
-    case <span class="hljs-string">&#x27;.otf&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;font/otf&#x27;</span>;
-    case <span class="hljs-string">&#x27;.mp4&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;video/mp4&#x27;</span>;
-    case <span class="hljs-string">&#x27;.webm&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;video/webm&#x27;</span>;
-    case <span class="hljs-string">&#x27;.ogg&#x27;</span>:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;video/ogg&#x27;</span>;
-    default:
-      <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;text/plain&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.html&#x27;</span>:
+      return <span class="hljs-string">&#x27;text/html&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.css&#x27;</span>:
+      return <span class="hljs-string">&#x27;text/css&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.js&#x27;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.mjs&#x27;</span>:
+      return <span class="hljs-string">&#x27;application/javascript&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.json&#x27;</span>:
+      return <span class="hljs-string">&#x27;application/json&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.png&#x27;</span>:
+      return <span class="hljs-string">&#x27;image/png&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.jpg&#x27;</span>:
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.jpeg&#x27;</span>:
+      return <span class="hljs-string">&#x27;image/jpeg&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.gif&#x27;</span>:
+      return <span class="hljs-string">&#x27;image/gif&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.svg&#x27;</span>:
+      return <span class="hljs-string">&#x27;image/svg+xml&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.woff&#x27;</span>:
+      return <span class="hljs-string">&#x27;font/woff&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.woff2&#x27;</span>:
+      return <span class="hljs-string">&#x27;font/woff2&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.eot&#x27;</span>:
+      return <span class="hljs-string">&#x27;application/vnd.ms-fontobject&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.ttf&#x27;</span>:
+      return <span class="hljs-string">&#x27;font/ttf&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.otf&#x27;</span>:
+      return <span class="hljs-string">&#x27;font/otf&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.mp4&#x27;</span>:
+      return <span class="hljs-string">&#x27;video/mp4&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.webm&#x27;</span>:
+      return <span class="hljs-string">&#x27;video/webm&#x27;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;.ogg&#x27;</span>:
+      return <span class="hljs-string">&#x27;video/ogg&#x27;</span>;
+    <span class="hljs-symbol">default:</span>
+      return <span class="hljs-string">&#x27;text/plain&#x27;</span>;
   }
 };
 </code></pre>

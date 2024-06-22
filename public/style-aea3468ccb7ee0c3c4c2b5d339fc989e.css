@@ -43,6 +43,25 @@ body {
   min-width: 350px;
 }
 
+.header .links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+}
+
+.header .links a {
+  color: var(--color-fg-default);
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.header .links a i,
+.header .links a svg {
+  font-size: 200%;
+}
+
+
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -50,7 +69,7 @@ body {
 }
 
 .sidebar {
-  width: 250px;
+  width: 300px;
   padding: 1rem 1.4rem;
   position: sticky;
   top: 0;
