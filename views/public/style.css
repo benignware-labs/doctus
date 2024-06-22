@@ -61,7 +61,6 @@ body {
   font-size: 200%;
 }
 
-
 .container {
   max-width: 800px;
   margin: 0 auto;
@@ -69,12 +68,21 @@ body {
 }
 
 .sidebar {
-  width: 300px;
+  width: 320px;
+  max-width: 100%;
   padding: 1rem 1.4rem;
   position: sticky;
   top: 0;
   max-height: 100vh;
   overflow: auto;
+}
+
+.sidebar-left {
+  width: 260px;
+}
+
+.sidebar-right {
+  width: 320px;
 }
 
 .border-right {
