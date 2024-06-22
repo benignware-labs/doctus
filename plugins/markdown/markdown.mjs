@@ -47,9 +47,7 @@ const markdown = (context) => {
         return currentFile;
       }
     }
-  )/*.use(markdownItFrontMatter, (fm) => {
-    return parseFrontMatter(fm);
-  });*/
+  );
 
   return {
     get renderer() {
@@ -67,8 +65,6 @@ const markdown = (context) => {
         const dest = data.dest || file
           .replace(/README\.md$/, 'index.html')
           .replace(/\.md$/, '.html');
-
-        console.log('dest.:', dest, source.substring(0, 10), source.match(/^#\s*(.*)/m)?.[1]);
 
         const title = data.title || source.match(/^#\s*(.*)/m)?.[1] || file.replace(/\.md$/, '');
         const name = data.name || humanizeFile(path.basename(dest));

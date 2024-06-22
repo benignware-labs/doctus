@@ -137,8 +137,6 @@ export const getTemplateDataSync = (files = getFiles()) => {
     return [];
   }
 
-  console.log('FILES: ', files);
-
   let data = jsdoc2md.getTemplateDataSync({ files, 'no-cache': true, noCache: true, options: { 'no-cache': true, noCache: true } });
 
   return transformTemplateData(data);

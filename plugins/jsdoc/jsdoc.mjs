@@ -18,8 +18,6 @@ function jsDocPlugin(context) {
     },
     async load() {
       const files = globSync('**/*.{js,mjs}', { cwd, ignore });
-
-      console.log('files....', files);
       
       const data = getTemplateDataSync(files);
       const pages = getPages(data);
