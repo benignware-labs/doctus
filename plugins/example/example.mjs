@@ -31,7 +31,6 @@ let inc = 1;
 
 const renderExaample = (members, id, assets = []) => {
   return `
-  <h3>Example Template</h3>
   <template id="${id}-template">
     ${assets.filter(({ shadow }) => shadow)
       .map((asset) => {
