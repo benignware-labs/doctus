@@ -3,6 +3,7 @@ import http from 'http';
 import { promisify } from 'util';
 import ejs from 'ejs';
 import copy from 'copy';
+import ghPages from 'gh-pages';
 
 import { createFileSystem } from './utils/filesystem.mjs';
 import { getAssetHelper, getContentType } from './utils/getAssetHelper.mjs';
@@ -63,7 +64,7 @@ const doctus = () => {
     base = base === '' ? '.' : base;
 
     const output = await ejs.renderFile(path.join(views, `${page.view || 'page'}.ejs`), {
-      asset: getAssetHelper({ fs, cwd: views, output: '_/[name]-[hash][ext]'}),
+      asset: getAssetHelper({ fs, cwd: views, output: 'public/[name]-[hash][ext]'}),
       slot: (name) => {
         return getPluginInstances()
           .filter(plugin => plugin.slot)
@@ -155,6 +156,18 @@ const doctus = () => {
     await copyAsync(path.join(fs.dir, '**/*.*'), outputDir);
   }
 
+  const publish = async(repo = null) => {
+    await init();
+    await load();
+    await Promise.all([...context.pages.keys()].map(url => render(url)));
+    
+    ghPages.publish(fs.dir, {
+      repo,
+      dotfiles: true,
+      message: 'Update documentation'
+    });
+  }
+
   use(markdownPlugin);
   use(examplePlugin);
   use(highlightPlugin);
@@ -165,7 +178,8 @@ const doctus = () => {
   return {
     listen,
     use,
-    build
+    build,
+    publish
   }
 };
 

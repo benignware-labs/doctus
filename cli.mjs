@@ -25,25 +25,29 @@ program
 
 program
   .command('build [src...]')
-  .description('Build the files with the specified glob patterns')
+  .description('Build docs')
   .option('-i, --ignore <patterns...>', 'Ignore the specified glob patterns')
   .option('-d, --dest <destination>', 'Specify the destination directory')
   .action(async (src, options) => {
-    const patterns = src.length > 0 ? src : ['**/*.{md,js}'];
-    const ignorePatterns = options.ignore ? options.ignore : ['node_modules/**/'];
-    const destination = options.dest || 'docs-build';
- 
-    console.log('Building files...');
-    console.log('Patterns:', patterns);
-    console.log('Ignore patterns:', ignorePatterns);
-    console.log('Destination:', destination);
-
     const app = doctus({
-      src: patterns,
-      ignore: ignorePatterns
+      src: src.length > 0 ? src : ['**/*.{md,js}'],
+      ignore: options.ignore ? options.ignore : ['node_modules/**/'],
     });
 
-    app.build(destination);
+    app.build(options.dest || 'docs-build');
   });
+
+  program
+    .command('publish [src...]')
+    .description('Publish docs')
+    .option('-r, --repo <repo>', 'Specify the repository')
+    .action(async (src, options) => {
+      const app = doctus({
+        src: src.length > 0 ? src : ['**/*.{md,js}'],
+        ignore: options.ignore ? options.ignore : ['node_modules/**/'],
+      });
+  
+      app.publish(options.repo);
+    });
 
   program.parse(process.argv);

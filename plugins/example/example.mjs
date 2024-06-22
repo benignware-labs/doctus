@@ -140,7 +140,7 @@ const examplePlugin = (context) => {
   let pkgAssets = [];
 
   const exampleViewerSrc = path.resolve(__dirname, 'ExampleViewer.js');
-  const exampleViewerDest = '~/plugins/core/example/ExampleViewer.js';
+  const exampleViewerDest = 'public/plugins/core/example/ExampleViewer.js';
 
   return {
     async init() {
