@@ -18,7 +18,7 @@ const getTempDir = (projectDir = process.cwd()) => {
     .createHash('md5')
     .update(`doctus:${projectDir}`)
     .digest("hex");
-  const directory = path.join(os.tmpdir(), id);
+  const directory = path.join(os.tmpdir(), `doctus-${id}`);
 
   if (!existsSync(directory)) {
     mkdirSync(directory);
