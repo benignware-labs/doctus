@@ -48,7 +48,7 @@ const renderExaample = (members, id, assets = []) => {
           <script type="importmap">
             {
               "imports": {
-                "${name}": "${file}"
+                "${name}/": "${file}"
               }
             }
           </script>
@@ -155,7 +155,7 @@ const examplePlugin = (context) => {
                 .dirname(markdownPlugin.currentFile)
                 .replace(/\/$/, ''),
               fs: context.fs,
-              output: '_/[name]-[hash][ext]'
+              output: 'public/[name]-[hash][ext]'
             });
           },
         });
@@ -212,7 +212,7 @@ const examplePlugin = (context) => {
 
           if (pkgScriptFile) {
             const relPkgScriptFile = path.relative(context.cwd, pkgScriptFile);
-            const pkgScriptDest = '-/' + relPkgScriptFile;
+            const pkgScriptDest = 'public/' + relPkgScriptFile;
             const pkgScriptAbsDest = context.fs.getFile(pkgScriptDest);
 
             const bundle = await esbuild.build({
@@ -235,13 +235,25 @@ const examplePlugin = (context) => {
     slot(name, content) {
       if (name === 'head') {
         content+= `<script src="${exampleViewerDest}"></script>`;
-        content+= pkgAssets.map(({ url, type, shadow }) => {
+        content+= pkgAssets.map(({ url, name, type, shadow }) => {
           if (type === 'css') {
             return !shadow ? `<link rel="stylesheet" href="${url}" />` : '';
           }
 
           if (type === 'module') {
-            return !shadow ? `<script src="${url}" type="module"></script>` : '';
+            const importMap = name ? `<script type="importmap">
+              {
+                "imports": {
+                  "${name}": "./${url}"
+                }
+              }
+            </script>` : '';
+            // const importMap = '';
+
+            return !shadow ? `
+              ${importMap}
+              <script src="${url}" type="module"></script>
+            ` : '';
           }
 
           return !shadow ? `<script src="${url}"></script>` : '';
